@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFF8E7">
+<title>마음잇기 – 마음이와 말하기 연습</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#FFF8E7;--card:#FFFFFF;--ink:#23324A;--sub:#5B6B80;--line:#EFE2C2;--pri:#1F6AE1;--pri-d:#154FA8;--on-pri:#FFFFFF;--soft:#EAF1FF;
+--good:#D9F5E3;--goodb:#27AE60;--ok:#FFF0C2;--okb:#E0A100;--try:#E3ECFF;--tryb:#3B6FD8;--heart:#FF5A7A}
+@media (prefers-color-scheme:dark){:root{--bg:#161B26;--card:#202838;--ink:#EEF2FA;--sub:#B2BED2;--line:#33405A;--pri:#7DB0FF;--pri-d:#4A78C4;--on-pri:#0B1730;--soft:#26324A;--good:#1E4430;--ok:#4A3E16;--try:#233A63}
+body::before{display:none}}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 18px/1.6 'Noto Sans KR',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 8% 0,#FFE2A8 0,transparent 34%),radial-gradient(circle at 100% 8%,#CFE5FF 0,transparent 30%)}
+main{max-width:600px;margin:0 auto;padding:14px max(18px,env(safe-area-inset-right)) 56px max(18px,env(safe-area-inset-left))}
+h1,h2,.brand,.catn,.big{font-family:'Jua','Noto Sans KR',sans-serif;font-weight:400;letter-spacing:.01em}
+h1{font-size:30px;line-height:1.3;margin:0}
+h2{font-size:22px;margin:26px 0 12px}
+p{margin:0}
+.hide{display:none!important}
+.sub{color:var(--sub)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:4px solid var(--pri);outline-offset:3px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0 8px}
+.brand{display:flex;align-items:center;gap:8px;font-size:25px;color:var(--pri)}
+.chip{font-size:14px;font-weight:700;padding:6px 14px;border-radius:99px;background:var(--card);border:2px solid var(--line)}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:58px;padding:12px 20px;border-radius:20px;border:0;background:var(--pri);color:var(--on-pri);font-weight:800;font-size:19px;box-shadow:0 5px 0 var(--pri-d);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--pri-d)}
+.btn.alt{background:var(--card);color:var(--ink);border:3px solid var(--line);box-shadow:0 5px 0 var(--line)}
+.btn.alt:active{box-shadow:0 1px 0 var(--line)}
+.btn .ic{stroke:currentColor}
+.link{background:none;border:0;min-height:48px;padding:6px 4px;color:var(--pri);font-weight:700;font-size:16px;text-decoration:underline;text-underline-offset:3px}
+.back{display:inline-flex;align-items:center;gap:6px;min-height:48px;padding:6px 14px 6px 8px;border-radius:99px;border:3px solid var(--line);background:var(--card);font-weight:700;font-size:16px}
+.hello{display:flex;align-items:center;gap:14px;margin:6px 0 0}
+.bub{background:var(--card);border:3px solid var(--line);border-radius:22px 22px 22px 6px;padding:12px 16px;font-weight:700}
+.modes{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.mode{position:relative;text-align:left;padding:16px 50px 16px 68px;border-radius:22px;border:3px solid var(--line);background:var(--card);box-shadow:0 5px 0 var(--line)}
+.mode b{display:block;font-size:19px}.mode span.sub{font-size:15px;line-height:1.4;display:block}
+.mi{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--soft)}
+.mi .ic{stroke:var(--pri)}
+.mode[aria-pressed=true]{border-color:var(--pri);background:var(--soft);box-shadow:0 5px 0 var(--pri)}
+.mode[aria-pressed=true]::after{content:'✓';position:absolute;right:14px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--pri);color:var(--on-pri);display:grid;place-items:center;font-weight:800}
+.card{background:var(--card);border:3px solid var(--line);border-radius:24px;padding:18px}.randomCard{margin:0 0 16px;border-color:var(--pri);background:var(--soft)}.randomCard button:disabled{opacity:.55;cursor:not-allowed;box-shadow:0 2px 0 var(--pri-d)}.reviewBox{margin-top:18px}.randomCard>b{font-family:'Jua','Noto Sans KR',sans-serif;font-size:22px;font-weight:400}
+.cats{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.cat{text-align:left;padding:16px;border-radius:26px;border:3px solid var(--c);background:var(--card);box-shadow:0 6px 0 var(--c);display:flex;flex-direction:column;gap:6px;min-height:178px;transition:transform .08s,box-shadow .08s}
+.cat:active{transform:translateY(5px);box-shadow:0 1px 0 var(--c)}
+.tile{width:56px;height:56px;border-radius:18px;background:var(--c);display:grid;place-items:center;flex:none}
+.catn{font-size:23px;line-height:1.25}
+.cat .sub{font-size:15px;line-height:1.35}
+.prog{margin-top:auto;font-size:14px;font-weight:700;color:var(--sub)}
+.cats.locked .cat{opacity:.5;filter:grayscale(.35)}
+.lockmsg{margin-top:12px;font-weight:700;color:var(--pri);min-height:1.6em}
+.ic{stroke:#fff;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.scl{display:grid;gap:12px;margin-top:14px}.lessonGroup{margin-top:18px}.lessonGroup h2{margin:0 0 8px;font-size:20px}.lessonGroup .scl{margin-top:0}.sc.done{opacity:.82}.sc.todo{border-color:var(--c);box-shadow:0 5px 0 var(--c)}
+.sc{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 16px;border-radius:22px;border:3px solid var(--line);background:var(--card);box-shadow:0 5px 0 var(--line);min-height:86px;transition:transform .08s,box-shadow .08s}
+.sc:active{transform:translateY(4px);box-shadow:0 1px 0 var(--line)}
+.sc .tile{width:50px;height:50px;border-radius:16px}
+.sc b{display:block;font-size:19px;line-height:1.35}.sc .sub{font-size:15px;line-height:1.35}
+.stars{margin-left:auto;display:flex;gap:1px;flex:none}
+.star{fill:var(--line)}.star.on{fill:#FFC93C}
+.playtop{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hearts{display:flex;gap:3px}
+.heart path{fill:var(--heart)}.heart.off path{fill:none;stroke:var(--line);stroke-width:2.2}
+.segs{display:flex;gap:6px;margin:12px 0 14px}
+.segs i{flex:1;height:12px;border-radius:99px;background:var(--line)}
+.segs i.d{background:var(--c)}.segs i.cur{background:var(--c);opacity:.5}
+.scene{font-weight:700;color:var(--sub);font-size:15px;margin-bottom:10px}
+.npc{display:flex;gap:12px;align-items:flex-end}
+.av{flex:none;width:52px;height:52px;border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;font-family:'Jua',sans-serif;font-size:22px}
+.bubble{flex:1;background:var(--card);border:3px solid var(--c);border-radius:22px 22px 22px 6px;padding:12px 18px}
+.who{font-size:14px;font-weight:800;color:var(--sub)}
+.say{font-size:22px;font-weight:700;line-height:1.45}
+.choices{display:grid;gap:12px;counter-reset:o}
+.choice{display:flex;align-items:center;gap:14px;text-align:left;width:100%;padding:14px 16px;min-height:64px;border-radius:20px;border:3px solid var(--line);background:var(--card);box-shadow:0 5px 0 var(--line);font-weight:700;transition:transform .08s,box-shadow .08s}
+.choice::before{counter-increment:o;content:counter(o);flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--pri);font-weight:800}
+.choice:hover{border-color:var(--pri)}
+.choice:active{transform:translateY(4px);box-shadow:0 1px 0 var(--line)}
+.choices.lock .choice{pointer-events:none;opacity:.55}
+.choices.lock .choice.right,.choices.lock .choice.wrong{opacity:1}
+.choice.right{background:var(--good);border-color:var(--goodb);box-shadow:0 5px 0 var(--goodb)}
+.choice.wrong{background:var(--ok);border-color:var(--okb);box-shadow:0 5px 0 var(--okb)}
+.row{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center}
+.hintbox{background:var(--ok);border-radius:18px;padding:12px 16px;margin:6px 0 8px;font-weight:500}
+.fbx{display:flex;gap:12px;align-items:center;border-radius:22px;padding:14px 16px;margin:16px 0;animation:pop .3s ease-out}
+.fbx.good{background:var(--good)}.fbx.ok{background:var(--ok)}.fbx.try{background:var(--try)}
+.fbx b{font-family:'Jua',sans-serif;font-weight:400;font-size:21px;display:block;line-height:1.3}
+.stack{display:grid;gap:14px;margin-top:10px}
+.mas{flex:none;animation:bob 2.6s ease-in-out infinite}
+.listening{animation:pulse 1.2s ease-in-out infinite}
+.celebrate{text-align:center;padding-top:10px}
+.celebrate .big{font-size:34px;margin:6px 0}
+.bigstars{display:flex;justify-content:center;gap:6px;margin:6px 0 12px}
+.conf{position:fixed;top:-16px;width:10px;height:14px;border-radius:3px;animation:fall 2.8s linear forwards;z-index:5;pointer-events:none}
+@keyframes pop{from{transform:scale(.95);opacity:.3}to{transform:none;opacity:1}}
+@keyframes bob{50%{transform:translateY(-4px)}}
+@keyframes pulse{50%{box-shadow:0 5px 0 var(--pri-d),0 0 0 10px rgba(31,106,225,.18)}}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.shake{animation:shake .3s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (min-width:700px){main{max-width:740px}.scl{grid-template-columns:1fr 1fr}}
+@media (min-width:900px) and (orientation:landscape){main{max-width:1060px}.pg{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}.pl{position:sticky;top:12px}.cats{grid-template-columns:repeat(4,1fr)}}
+@media (orientation:landscape) and (max-height:520px){body{font-size:16px;line-height:1.5}main{max-width:920px;padding-top:6px;padding-bottom:24px}h1{font-size:24px}h2{font-size:19px;margin:16px 0 8px}.pg{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}.btn{min-height:50px}.choice{min-height:54px;padding:10px 14px}.say{font-size:19px}.segs{margin:6px 0 8px}.cat{min-height:150px}.cats{grid-template-columns:repeat(4,1fr)}.fbx{margin:10px 0}.mas{width:48px;height:48px}}
+
+.pill{display:flex;align-items:center;gap:6px;border:3px solid var(--line);background:var(--card);border-radius:99px;padding:3px 14px 3px 4px;font-weight:800;font-size:16px}
+.pill .avs{display:block;border-radius:50%}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:center;gap:4px;background:var(--card);border-top:3px solid var(--line);padding:6px max(8px,env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left))}
+.tabs button{flex:1;max-width:160px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:60px;border:0;background:none;border-radius:16px;font-weight:700;font-size:13px;color:var(--sub)}
+.tabs .ic{stroke:currentColor}
+.tabs button[aria-current=page]{color:var(--pri);background:var(--soft)}
+body.hastabs main{padding-bottom:120px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.stat{background:var(--card);border:3px solid var(--line);border-radius:20px;padding:12px 6px;text-align:center}
+.stat b{display:block;font-family:'Jua',sans-serif;font-weight:400;font-size:24px;color:var(--pri);line-height:1.2}
+.stat span{font-size:14px;color:var(--sub);font-weight:700}
+.bar1{margin-bottom:14px}.bl{display:flex;justify-content:space-between;font-size:16px;margin-bottom:4px}
+.bt{height:16px;border-radius:99px;background:var(--line);overflow:hidden}.bt i{display:block;height:100%;border-radius:99px;background:var(--c)}
+.shophead{display:flex;align-items:center;gap:16px;margin:10px 0 14px}
+.avs{display:block}#shopAv .avs,#profAv .avs{border-radius:26px;box-shadow:0 5px 0 var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chipb{min-height:46px;padding:8px 18px;border-radius:99px;border:3px solid var(--line);background:var(--card);font-weight:800;font-size:16px}
+.chipb[aria-pressed=true]{background:var(--pri);border-color:var(--pri);color:var(--on-pri)}
+.items{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.itm{display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--card);border:3px solid var(--line);border-radius:22px;padding:12px}
+.itm.on{border-color:var(--goodb);background:var(--good)}
+.itm b{font-size:16px}.itm .btn{min-height:46px;font-size:16px;padding:8px 12px}
+.profc{display:flex;flex-direction:column;align-items:center;gap:10px}
+.profc input{width:100%;max-width:320px;min-height:54px;border-radius:16px;border:3px solid var(--line);padding:8px 16px;font:inherit;font-weight:700;text-align:center;background:var(--bg);color:var(--ink)}
+.profc input:focus-visible{outline:4px solid var(--pri);outline-offset:2px}
+.mode.flat{padding:16px 50px 16px 18px}
+.calm *,.calm *::before,.calm *::after{animation:none!important;transition:none!important}
+@media (orientation:landscape) and (max-height:520px){.tabs button{min-height:50px;flex-direction:row;justify-content:center;gap:8px}body.hastabs main{padding-bottom:84px}}
+.sw{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.sw button{width:46px;height:46px;min-height:46px;padding:0;border-radius:50%;border:4px solid var(--line);position:relative}
+.sw button[aria-pressed=true]{border-color:var(--pri);box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--pri)}
+#obAv .avs{border-radius:26px;box-shadow:0 5px 0 var(--line)}
+.stage{position:relative;border-radius:24px;overflow:hidden;border:3px solid var(--c);background:var(--card);line-height:0}
+.stg{width:100%;height:auto;display:block}
+.sbub{position:absolute;top:10px;left:10px;right:10px;line-height:1.4;background:var(--card);border:3px solid var(--c);border-radius:20px;padding:8px 14px;box-shadow:0 3px 0 rgba(0,0,0,.1)}
+.sbub .say{font-size:clamp(17px,4.6vw,21px);line-height:1.4}
+.sbub::after{content:'';position:absolute;bottom:-15px;width:0;height:0;border:10px solid transparent;border-top-color:var(--c);border-bottom:0}
+.sbub.r::after{left:66%}
+.sbub.think{border-style:dashed;border-radius:28px}
+.sbub.think::after{left:18%;bottom:-24px;width:16px;height:16px;border:3px solid var(--c);border-radius:50%;background:var(--card)}
+.avs{max-width:100%;height:auto}
+.shophead.rm{flex-direction:column;align-items:stretch}.shophead.rm #shopAv{display:flex;justify-content:center}
+.items.rm{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.petitems{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.petcard{display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--card);border:3px solid var(--line);border-radius:22px;padding:16px;text-align:center}.petemoji{font-size:58px;line-height:1}.petcard input{width:100%;min-height:46px;border-radius:14px;border:3px solid var(--line);padding:6px 12px;font:inherit;font-weight:700;text-align:center;background:var(--bg);color:var(--ink)}.petcard input:focus-visible{outline:4px solid var(--pri);outline-offset:2px}.petcard .btn{min-height:46px;font-size:16px;padding:8px 12px}.petname{font-family:'Jua','Noto Sans KR',sans-serif;font-size:21px;color:var(--pri)}
+</style>
+</head>
+<body>
+<main>
+<header class="top">
+<div class="brand" id="logo"></div>
+<button class="pill" id="pill" type="button" aria-label="내 레벨과 별, 꾸미기"><span id="pillAv"></span><span>Lv.<b id="levelN">1</b> · ★ <b id="pillN">0</b></span></button>
+</header>
+
+<section id="home">
+<div class="hello"><span id="helloMas"></span><div class="bub"><span id="hi">안녕! 나는 마음이야.</span><br>오늘은 어떤 말하기를 연습해 볼까?</div></div>
+<div style="margin-top:10px"><span id="chip" class="chip hide"></span></div>
+<h2>① 연습 방법을 골라요</h2>
+<div class="modes">
+<button class="mode" type="button" data-m="voice" aria-pressed="false"><span class="mi" id="miVoice"></span><b>소리 내어 말하기</b><span class="sub">마이크에 대고 직접 말해요</span></button>
+<button class="mode" type="button" data-m="choice" aria-pressed="false"><span class="mi" id="miChoice"></span><b>선택해서 말하기</b><span class="sub">문장을 눌러 골라요. 조용해서 밖에서도 좋아요</span></button>
+</div>
+<p class="sub" id="modeNote" style="margin-top:12px"></p>
+<div id="micGate" class="card hide" style="margin-top:12px">
+<b>마이크를 켜 주세요</b>
+<p class="sub" style="margin:4px 0 12px;font-size:16px">말소리는 브라우저의 음성 인식 기능으로 처리돼요. 브라우저에 따라 음성이 인식 서비스로 전송될 수 있어요.</p>
+<button class="btn" id="askMic" type="button">마이크 허용하기</button>
+<p id="micState" class="sub" aria-live="polite" style="margin-top:10px;font-size:16px"></p>
+<button class="link" id="toChoice" type="button">대신 선택해서 말하기 쓰기</button>
+</div>
+<h2>② 무엇을 연습할까요?</h2>
+<div class="card randomCard"><b>돌발 상황 게임</b><p class="sub" id="randomNote" style="margin:4px 0 12px;font-size:16px">레벨 10부터 열려요. 여러 돌발 상황을 섞어서 도전해요!</p><button class="btn" id="randomGame" type="button">게임 시작</button></div>
+<div class="cats" id="cats"></div>
+<p class="lockmsg" id="lockmsg" aria-live="polite"></p>
+</section>
+
+<section id="cat" class="hide">
+<button class="back" id="catBack" type="button">← 처음으로</button>
+<div style="display:flex;align-items:center;gap:14px;margin-top:16px">
+<span class="tile" id="catTile" style="width:60px;height:60px"></span>
+<div><h1 id="catTitle"></h1><p class="sub" id="catDesc"></p></div>
+</div>
+<div class="scl" id="scl"></div><div id="reviewBox"></div>
+</section>
+
+<section id="play" class="hide">
+<div class="playtop"><button class="back" id="playBack" type="button">← 나가기</button><div class="hearts" id="hearts" role="img"></div></div>
+<div class="segs" id="segs"></div>
+<div class="pg">
+<div class="pl">
+<div class="scene" id="scene"></div>
+<div class="stage" id="stage"></div>
+<button class="link" id="listen" type="button">소리로 듣기</button>
+</div>
+<div class="pr">
+<h2 style="margin-top:6px">어떻게 말할까요?</h2>
+<div class="choices" id="choices"></div>
+<div id="voice" class="hide">
+<button class="btn" id="mic" type="button"></button>
+<div id="heard" class="card hide" style="margin-top:12px"></div>
+<p id="hint" class="hintbox hide"></p>
+<div class="row"><button class="link" id="hintBtn" type="button">힌트 보기</button><button class="link" id="swap" type="button">선택해서 말하기로 바꾸기</button></div>
+</div>
+<div id="fb" aria-live="polite"></div>
+<div class="stack">
+<button class="btn alt hide" id="retry" type="button">다시 풀어 보기</button>
+<button class="btn hide" id="next" type="button">다음</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="done" class="hide">
+<div class="celebrate">
+<div id="doneMas"></div>
+<div class="big" id="doneTitle"></div>
+<div class="bigstars" id="doneStars"></div>
+<p id="doneText"></p>
+<p id="doneReward" style="margin-top:8px;font-weight:800;color:var(--pri)"></p>
+</div>
+<div class="stack" style="margin-top:22px">
+<button class="btn" id="again" type="button">한 번 더 해 보기</button>
+<button class="btn alt" id="toShop" type="button">★ 별로 꾸미러 가기</button>
+<button class="btn alt" id="moreCat" type="button">이 종류의 다른 상황</button>
+<button class="btn alt" id="toHome" type="button">처음으로</button>
+</div>
+</section>
+
+<section id="ob" class="hide">
+<div class="hello"><span id="obMas"></span><div class="bub">처음 만나서 반가워!<br>나를 소개해 줄래?</div></div>
+<div class="card profc" style="margin-top:16px">
+<div id="obAv"></div>
+<label for="obNick" class="sub"><b>1. 내 별명</b> (실명은 쓰지 마세요)</label>
+<input id="obNick" maxlength="8" placeholder="별명을 적어요" autocomplete="off">
+<button class="link" id="obRand" type="button">추천 별명 받기</button>
+<p class="sub"><b>2. 머리 색을 골라요</b></p><div class="sw" id="obHair" role="group" aria-label="머리 색"></div>
+<p class="sub"><b>3. 옷 색을 골라요</b></p><div class="sw" id="obTop" role="group" aria-label="옷 색"></div>
+<p id="obMsg" class="lockmsg" aria-live="polite"></p>
+</div>
+<div class="stack"><button class="btn" id="obGo" type="button">시작하기</button></div>
+</section>
+<section id="rec" class="hide">
+<h1>내 기록</h1>
+<div class="stats"><div class="stat"><b id="recStars">0</b><span>모은 별</span></div><div class="stat"><b id="recDone">0 / 100</b><span>완료한 상황</span></div><div class="stat"><b id="recPlays">0</b><span>연습한 횟수</span></div></div>
+<h2>종류별 진행</h2>
+<div id="recBars"></div>
+<div id="recTip" style="margin-top:18px"></div>
+</section>
+<section id="shop" class="hide">
+<h1>꾸미기</h1>
+<div class="shophead"><div id="shopAv"></div><div><p class="sub">내가 모은 별</p><div class="big" style="font-size:34px">★ <span id="shopBal">0</span></div><p id="shopMsg" class="lockmsg" aria-live="polite"></p></div></div>
+<div class="chips" id="shopMode" role="group" aria-label="꾸미기 모드"></div>
+<div class="chips" id="slots" role="group" aria-label="꾸미기 종류"></div>
+<div class="items" id="items"></div>
+<div id="petShop" class="hide"></div>
+</section>
+<section id="prof" class="hide">
+<h1>내 프로필</h1>
+<div class="card profc"><div id="profAv"></div><label for="nick" class="sub">내 별명 (실명은 쓰지 마세요)</label><input id="nick" maxlength="8" placeholder="별명을 적어요" autocomplete="off"><p class="sub" id="profStat" style="margin-top:10px;font-size:15px"></p>
+<p class="sub"><b>머리 색</b></p><div class="sw" id="pfHair" role="group" aria-label="머리 색"></div>
+<p class="sub"><b>옷 색 (옷 아이템을 안 입었을 때)</b></p><div class="sw" id="pfTop" role="group" aria-label="옷 색"></div></div>
+<h2>설정</h2>
+<div class="modes">
+<button class="mode flat" type="button" data-set="confetti" aria-pressed="true"><b>색종이 효과</b><span class="sub">잘했을 때 색종이가 나와요</span></button>
+<button class="mode flat" type="button" data-set="calm" aria-pressed="false"><b>움직임 줄이기</b><span class="sub">화면이 덜 움직여요</span></button>
+</div>
+<div class="stack" style="margin-top:20px"><button class="btn alt" id="reset" type="button">기록과 별 모두 지우기</button></div>
+<p class="sub" style="margin-top:12px;font-size:15px">기록과 꾸미기는 이 기기의 브라우저에만 저장돼요.</p>
+</section>
+</main>
+<nav class="tabs" id="tabs" aria-label="메뉴">
+<button type="button" data-t="home"><svg class="ic" width="26" height="26" viewBox="0 0 48 48" aria-hidden="true"><path d="M7 22L24 8l17 14v18H29V28H19v12H7z"/></svg>홈</button>
+<button type="button" data-t="rec"><svg class="ic" width="26" height="26" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 40V24M20 40V12M32 40V20M44 40H4"/></svg>내 기록</button>
+<button type="button" data-t="shop"><svg class="ic" width="26" height="26" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l5 11 12 1.500-9 8 2.500 12L24 32.500 13.500 38.500 16 26.500l-9-8L19 17z"/></svg>꾸미기</button>
+<button type="button" data-t="prof"><svg class="ic" width="26" height="26" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="16" r="9"/><path d="M8 42c0-10 7-16 16-16s16 6 16 16z"/></svg>내 프로필</button>
+</nav>
+
+<script>
+(function(){
+'use strict';
+var S=[
+{id:"cafe",title:"카페에서 주문하기",desc:"음료를 고르고 계산까지",steps:[
+{scene:"카페 계산대 앞에 섰어요.",who:"직원",say:"어서 오세요. 주문하시겠어요?",c:[
+["아이스 아메리카노 한 잔 주세요.","g","메뉴와 수량을 함께 말했어요. 직원이 바로 알아들을 수 있어요."],
+["메뉴판을 가리키며 “이거요.”","o","가리키는 것도 좋은 방법이에요. 메뉴 이름도 함께 말하면 더 정확해요."],
+["음… 그냥 아무거나요.","t","“아무거나”는 직원이 고르기 어려워요. 마시고 싶은 음료를 하나 말해 볼까요?"]]},
+{scene:"주문을 이어 가고 있어요.",who:"직원",say:"매장에서 드시고 가세요, 포장하세요?",c:[
+["매장에서 먹을게요.","g","질문 두 개 중 하나를 골라 대답했어요."],
+["잠깐만요, 생각해 볼게요.","o","시간이 필요하면 이렇게 말해도 돼요. 천천히 정해도 괜찮아요."],
+["네.","t","“네”는 두 가지 중 어느 쪽인지 알 수 없어요. “매장에서요” 또는 “포장이요”라고 말해 보세요."]]},
+{scene:"결제할 차례예요.",who:"직원",say:"4,500원입니다. 카드로 하시겠어요?",c:[
+["카드로 할게요.","g","결제 방법을 분명하게 말했어요."],
+["죄송한데, 다시 한 번 말씀해 주시겠어요?","g","못 들었을 때 다시 물어보는 건 좋은 방법이에요."],
+["아무 말 없이 서 있는다.","t","잘 모르겠을 때는 “다시 말씀해 주세요.”라고 말해도 괜찮아요."]]},
+{scene:"음료를 기다리고 있어요.",who:"직원",say:"음료가 나오면 불러 드릴게요.",c:[
+["네, 감사합니다.","g","짧고 친절한 인사예요."],
+["알겠어요.","o","좋아요. 끝에 “감사합니다”를 붙이면 더 부드러워요."],
+["대답하지 않고 자리를 찾아간다.","t","짧게라도 “네”라고 말하면 직원이 안심해요."]]}]},
+{id:"help",title:"도움 요청하기",desc:"마트에서 찾는 물건 물어보기",steps:[
+{scene:"마트에서 우유를 찾고 있는데 보이지 않아요. 직원이 지나가고 있어요.",who:"나의 생각",say:"우유가 안 보여요. 어떻게 하면 좋을까요?",c:[
+["“저기요, 잠깐 도와주실 수 있나요?”","g","먼저 말로 불러서 부탁했어요. 가장 안전하고 분명한 방법이에요."],
+["조금 더 혼자 찾아본다.","o","혼자 찾아보는 것도 좋아요. 그래도 어려우면 도움을 요청해도 돼요."],
+["직원의 옷이나 팔을 잡는다.","t","몸을 만지지 않고 말로 불러 보세요. 직원이 놀랄 수 있어요."]]},
+{scene:"직원이 멈춰서 나를 봐요.",who:"직원",say:"네, 무엇을 도와드릴까요?",c:[
+["우유를 찾고 있어요. 어디 있나요?","g","찾는 물건을 말하고 위치를 물었어요."],
+["죄송한데, 우유 어디 있어요?","g","정중하고 짧게 물었어요."],
+["이거 없어요.","t","무엇이 없는지 말하지 않으면 직원이 알기 어려워요. 물건 이름을 말해 볼까요?"]]},
+{scene:"직원이 설명해 줘요.",who:"직원",say:"저쪽 끝에 있는 냉장 코너에 있어요.",c:[
+["다시 한 번 말씀해 주세요.","g","잘 이해되지 않으면 다시 물어도 돼요."],
+["같이 가 주실 수 있나요?","g","필요한 도움을 구체적으로 부탁했어요."],
+["네. (잘 모르지만 그냥 말한다)","t","잘 모를 때 “네”라고 하면 길을 잃을 수 있어요. 다시 물어보는 게 더 좋아요."]]},
+{scene:"우유를 찾았어요.",who:"직원",say:"찾으셨어요? 필요한 거 있으면 또 말씀하세요.",c:[
+["네, 찾았어요. 도와주셔서 감사합니다.","g","도움을 받은 뒤 감사 인사까지 했어요."],
+["네, 감사합니다.","o","충분히 좋아요. 무엇이 도움이 되었는지 덧붙이면 더 좋아요."],
+["말없이 간다.","t","짧게 “감사합니다”라고 하면 서로 기분이 좋아져요."]]}]},
+{id:"store",title:"편의점에서 계산하기",desc:"봉투, 적립, 영수증 대답하기",steps:[
+{scene:"물건을 계산대에 올렸어요.",who:"직원",say:"봉투 필요하세요?",c:[["네, 봉투 하나 주세요.","g","필요한 것을 분명하게 말했어요."],["아니요, 괜찮아요.","g","필요 없을 때도 짧게 말하면 돼요."],["대답 없이 가만히 있는다.","t","직원이 기다리고 있어요. “네” 또는 “아니요”로 대답해 보세요."]]},
+{scene:"계산이 이어져요.",who:"직원",say:"포인트 적립하시겠어요?",c:[["아니요, 괜찮아요.","g","원하지 않을 때는 이렇게 말해요."],["네, 전화번호로 할게요.","g","원하는 방법까지 말했어요."],["잘 모르겠어요. 그냥 계산해 주세요.","o","모를 때 이렇게 말해도 좋아요."]]},
+{scene:"계산이 끝났어요.",who:"직원",say:"영수증 드릴까요?",c:[["네, 주세요.","g","필요하다고 말했어요."],["아니요, 괜찮아요.","g","필요 없다고 말했어요."],["그냥 돌아서 나간다.","t","짧게 대답하면 직원도 편해요."]]}]},
+{id:"bus",title:"버스 타고 내리기",desc:"가는 곳 확인하고 내리기",steps:[
+{scene:"정류장에 버스가 왔어요. 시청에 가는지 모르겠어요.",who:"나의 생각",say:"이 버스가 시청에 가는지 모르겠어요.",c:[["기사님, 이 버스가 시청에 가나요?","g","타기 전에 직접 물어보는 게 가장 안전해요."],["다른 사람에게 물어본다.","o","좋은 방법이에요. 기사님께 물어봐도 돼요."],["아무 버스나 탄다.","t","잘못 타면 길을 잃을 수 있어요. 먼저 물어봐요."]]},
+{scene:"버스에 탔어요.",who:"기사님",say:"네, 갑니다. 타세요.",c:[["감사합니다.","g","짧고 좋은 인사예요."],["시청에 도착하면 알려 주실 수 있나요?","g","필요한 도움을 구체적으로 부탁했어요."],["말없이 자리에 앉는다.","o","괜찮아요. 짧게 인사하면 더 좋아요."]]},
+{scene:"내릴 곳이 가까워졌어요.",who:"나의 생각",say:"다음 정류장이 내릴 곳이에요.",c:[["벨을 누르고 “내릴게요.”라고 말한다.","g","벨을 눌러야 버스가 멈춰요."],["벨만 누른다.","o","충분해요. 내릴 때 인사도 해 보세요."],["벨을 누르지 않고 기다린다.","t","벨을 누르지 않으면 버스가 서지 않을 수 있어요."]]}]},
+{id:"clinic",title:"병원 접수하기",desc:"아픈 곳 말하고 기다리기",steps:[
+{scene:"병원 접수 창구에 왔어요.",who:"직원",say:"어떻게 오셨어요?",c:[["진료 받으러 왔어요.","g","왜 왔는지 말했어요."],["예약했어요.","g","예약했다고 알려 줬어요."],["잠깐만요, 천천히 말할게요.","o","말이 바로 안 나오면 이렇게 말해도 돼요."]]},
+{scene:"접수를 이어 가고 있어요.",who:"직원",say:"어디가 불편하세요?",c:[["어제부터 배가 아파요.","g","어디가, 언제부터인지 말했어요."],["잘 모르겠어요. 도와주세요.","o","모를 때는 도움을 요청해도 돼요."],["괜찮아요.","t","아프다면 말해야 의사 선생님이 도울 수 있어요."]]},
+{scene:"접수가 끝났어요.",who:"직원",say:"저쪽에 앉아서 기다려 주세요. 이름을 부르면 오세요.",c:[["네, 알겠습니다.","g","이해했다고 알렸어요."],["얼마나 기다려야 하나요?","g","궁금한 점을 물어봤어요."],["대답 없이 아무 데나 간다.","t","앉을 자리를 확인하고 대답해 보세요."]]}]},
+{id:"food",title:"식당에서 주문하기",desc:"주문하고 물 더 달라고 하기",steps:[
+{scene:"식당 자리에 앉았어요.",who:"직원",say:"뭐 드릴까요?",c:[["비빔밥 하나 주세요.","g","메뉴와 수량을 함께 말했어요."],["아직 못 골랐어요. 조금 있다가 부를게요.","g","시간이 필요하다고 말했어요."],["아무거나요.","t","먹고 싶은 메뉴를 하나 말해 볼까요?"]]},
+{scene:"물이 다 떨어졌어요.",who:"나의 생각",say:"물을 더 달라고 말하고 싶어요.",c:[["저기요, 물 좀 더 주시겠어요?","g","정중하게 부탁했어요."],["손을 들고 직원을 기다린다.","o","좋아요. 눈이 마주치면 말해 보세요."],["큰 소리로 외친다.","t","손을 들거나 가까이 가서 조용히 불러 보세요."]]},
+{scene:"식사가 끝났어요.",who:"직원",say:"맛있게 드셨어요?",c:[["네, 맛있었어요. 감사합니다.","g","인사와 감사를 함께 전했어요."],["네.","o","괜찮아요. “감사합니다”를 붙여 보세요."],["아무 말 없이 나간다.","t","짧게 인사하면 서로 기분이 좋아져요."]]}]},
+{id:"hello",title:"처음 만난 사람과 인사하기",desc:"인사하고 이야기 이어 가기",steps:[
+{scene:"모임에서 처음 만난 사람이 말을 걸어요.",who:"민지",say:"안녕하세요. 저는 민지예요.",c:[["안녕하세요. 만나서 반가워요.","g","인사와 반가움을 함께 전했어요."],["안녕.","o","친한 사이에는 좋아요. 처음엔 존댓말이 더 좋아요."],["고개를 숙이고 말하지 않는다.","t","짧게 “안녕하세요”라고만 해도 충분해요."]]},
+{scene:"대화가 이어져요.",who:"민지",say:"요즘 뭐 하면서 지내요?",c:[["저는 그림 그리는 걸 좋아해요. 민지 씨는요?","g","내 이야기를 하고 상대방에게도 물었어요."],["그냥 지내요.","o","괜찮아요. 좋아하는 것을 하나 말해 보세요."],["몰라요.","t","좋아하는 것이나 최근에 한 일을 하나 말해 보세요."]]},
+{scene:"헤어질 시간이에요.",who:"민지",say:"그럼 저는 이만 가 볼게요. 다음에 또 봐요.",c:[["네, 다음에 또 봐요. 안녕히 가세요.","g","마무리 인사를 잘했어요."],["안녕.","o","괜찮아요. 존댓말로 하면 더 좋아요."],["말없이 돌아선다.","t","짧게 인사하면 좋은 기억이 남아요."]]}]},
+{id:"no",title:"싫다고 말하기",desc:"부탁받았을 때 내 마음 말하기",steps:[
+{scene:"친구가 내 펜을 보고 말해요.",who:"친구",say:"그 펜 좀 빌려줘.",c:[["응, 빌려줄게. 다 쓰면 돌려줘.","g","빌려줄 때는 돌려 달라고 말하면 좋아요."],["미안해, 지금은 내가 써야 해서 안 돼.","g","싫을 때는 이유와 함께 말해도 괜찮아요."],["말없이 뺏긴다.","t","싫으면 싫다고 말해도 괜찮아요."]]},
+{scene:"친구가 놀러 가자고 해요. 나는 피곤해요.",who:"친구",say:"같이 놀러 가자. 지금 바로!",c:[["오늘은 피곤해서 다음에 가자.","g","솔직하게 말하고 다음을 제안했어요."],["초대해 줘서 고마워. 오늘은 어려워.","g","고마운 마음과 거절을 함께 전했어요."],["알았어. (하기 싫지만 그냥 간다)","t","하기 싫은데 따라가면 힘들 수 있어요. 솔직하게 말해도 돼요."]]},
+{scene:"길에서 모르는 사람이 말을 걸어요.",who:"모르는 사람",say:"같이 가 줄래요? 저쪽으로 따라오세요.",c:[["아니요, 안 갈게요.","g","모르는 사람이 따라오라고 하면 안 가도 돼요."],["싫어요. 저기 직원에게 도움을 요청할게요.","g","믿을 수 있는 사람에게 도움을 요청하는 건 아주 좋아요."],["네, 따라간다.","t","모르는 사람을 따라가면 위험할 수 있어요. 싫다고 말하고 믿을 수 있는 어른에게 알려요."]]}]}
+];
+var HINTS={cafe:['직원이 무엇을 주문할지 물었어요. 마시고 싶은 음료 이름과 몇 잔인지 함께 말해 보세요.','직원이 두 가지 중에서 고르라고 했어요. 어디에서 마실지 하나를 골라 말해 보세요.','직원이 결제 방법을 물었어요. 내가 낼 방법을 말해 보세요. 못 들었다면 다시 물어봐도 돼요.','직원이 안내를 해 줬어요. 고마운 마음을 짧게 전해 보세요.'],help:['직원의 도움이 필요해요. 몸을 만지지 말고, 먼저 불러서 도와줄 수 있는지 부탁해 보세요.','직원이 무엇을 도와줄지 물었어요. 내가 찾는 물건이 무엇인지, 어디 있는지 물어보세요.','직원의 설명이 어려웠다면 어떻게 하면 좋을까요? 다시 물어보거나 함께 가 달라고 부탁해 보세요.','도와준 사람에게 어떤 말을 하면 좋을까요? 내 마음을 짧게 전해 보세요.'],store:['봉투가 필요한지 아닌지, 내 생각을 짧게 말해 보세요.','포인트를 쌓을지 말지 내 선택을 말해 보세요. 잘 모르면 모른다고 말해도 돼요.','영수증이 필요한지 아닌지 대답해 보세요.'],bus:['어느 버스인지 모르겠어요. 타기 전에 누구에게 무엇을 물어보면 좋을까요?','버스에 타면서 어떤 인사를 하거나, 내릴 곳을 어떻게 부탁하면 좋을까요?','내릴 때 어떤 행동을 하고, 어떤 말을 하면 좋을까요?'],clinic:['접수 직원이 왜 왔는지 물었어요. 내가 병원에 온 이유를 말해 보세요.','어디가 언제부터 불편한지 말해 보세요. 모르겠다면 도움을 요청해도 돼요.','직원의 안내를 이해했다고 알려 주거나, 궁금한 점을 물어보세요.'],food:['먹고 싶은 메뉴와 몇 개인지 함께 말해 보세요. 아직 못 골랐다면 그렇게 말해도 돼요.','물이 더 필요해요. 직원에게 정중하게 부탁하려면 어떻게 말하면 좋을까요?','식사가 끝났어요. 맛이 어땠는지와 고마운 마음을 함께 전해 보세요.'],hello:['처음 만난 사람이 인사했어요. 나도 인사하고 반가운 마음을 전해 보세요.','내가 좋아하는 것을 하나 말하고, 상대방에게도 물어보면 대화가 이어져요.','헤어지는 인사를 해 보세요. 다음에 또 만나길 바란다는 마음을 담아 보세요.'],no:['빌려주고 싶은지 아닌지 내 마음을 먼저 생각해 보세요. 이유를 함께 말해도 좋아요.','지금 내 몸과 마음은 어떤가요? 솔직한 마음을 부드럽게 전하고 다른 날을 제안해 보세요.','모르는 사람이 따라오라고 해요. 따라가지 않겠다는 마음을 분명히 말하고, 믿을 수 있는 사람에게 도움을 요청해 보세요.']};
+var POOL=[['아무 말 없이 다른 곳만 본다.','t','말로 알려 줘야 상대방이 내 마음을 알 수 있어요.'],['작은 목소리로 혼잣말처럼 말한다.','t','상대방이 들을 수 있게 또박또박 말해 보세요.'],['화난 목소리로 크게 말한다.','t','부드럽고 차분한 목소리가 더 좋아요.'],['대답을 미루고 자리를 피한다.','t','어려우면 “잠깐만요”라고 말해도 돼요.'],['상대방 말을 끊고 내 이야기만 한다.','t','상대방 말이 끝날 때까지 기다렸다가 말해 보세요.']];
+S.push(
+{id:'way',title:'길 물어보기',desc:'가고 싶은 곳을 물어봐요',steps:[
+{scene:'시청역에 가고 싶은데 길을 모르겠어요. 지나가는 어른이 보여요.',who:'나의 생각',say:'어떻게 물어보면 좋을까요?',c:[['실례합니다. 시청역에 어떻게 가나요?','g','누구에게 무엇을 묻는지 분명하게 말했어요.'],['휴대폰 지도를 다시 본다.','o','지도를 보는 것도 좋아요. 그래도 어렵다면 물어봐도 돼요.'],['지나가는 사람 뒤를 말없이 따라간다.','t','모르는 사람을 따라가면 위험할 수 있어요. 말로 물어보세요.']]},
+{scene:'어른이 길을 알려 줘요.',who:'어른',say:'저쪽 사거리에서 오른쪽으로 가세요.',c:[['다시 한 번 말씀해 주시겠어요?','g','잘 못 들었을 때 다시 물어보는 건 좋은 방법이에요.'],['저쪽 사거리에서 오른쪽이요? 감사합니다.','g','들은 내용을 다시 말해서 확인했어요.'],['네. (잘 모르지만 그냥 말한다)','t','잘 모를 때 “네”라고 하면 길을 잃을 수 있어요.']]},
+{scene:'헤어질 때가 됐어요.',who:'어른',say:'조심해서 가세요.',c:[['네, 감사합니다. 안녕히 가세요.','g','고마운 마음과 인사를 함께 전했어요.'],['네.','o','괜찮아요. “감사합니다”를 붙이면 더 좋아요.'],['말없이 간다.','t','짧게 인사하면 서로 기분이 좋아져요.']]}]},
+{id:'play',title:'같이 놀자고 하기',desc:'친구에게 먼저 말 걸기',steps:[
+{scene:'놀이터에서 혼자 노는 친구가 있어요. 같이 놀고 싶어요.',who:'나의 생각',say:'같이 놀자고 말하고 싶어요.',c:[['나도 같이 놀아도 돼?','g','친구에게 마음을 부드럽게 물어봤어요.'],['친구 옆에 가만히 서 있는다.','o','가까이 가는 건 좋아요. 말로 물어보면 친구가 더 잘 알아요.'],['장난감을 말없이 가져간다.','t','필요하면 먼저 물어봐 주세요.']]},
+{scene:'친구가 대답해요.',who:'친구',say:'미안, 지금은 이거 혼자 하고 싶어.',c:[['알겠어. 그럼 조금 이따가 같이 놀자.','g','친구 마음을 받아들이고 나중을 약속했어요.'],['응, 괜찮아. 다 하면 말해 줘.','g','기분 좋게 기다려 주겠다고 말했어요.'],['싫어! 같이 할 거야!','t','친구도 싫다고 말할 수 있어요. 기분 나쁘지 않게 기다려 볼까요?']]},
+{scene:'조금 뒤에 친구가 불러요.',who:'친구',say:'다 했어. 이제 같이 하자!',c:[['좋아! 같이 하자.','g','반가운 마음을 말로 전했어요.'],['응.','o','괜찮아요. 기쁜 마음을 조금 더 말해 보세요.'],['이제 안 놀아.','t','친구가 불러 줬어요. 기쁜 마음을 말해 보세요.']]}]},
+{id:'lost',title:'잃어버린 물건 찾기',desc:'직원에게 도움 요청하기',steps:[
+{scene:'지하철에 가방을 두고 내렸어요. 역무원이 있어요.',who:'나의 생각',say:'가방을 잃어버렸어요. 누구에게 말하면 좋을까요?',c:[['저기요, 가방을 놓고 내렸어요. 도와주세요.','g','누구에게, 무엇이 필요한지 분명하게 말했어요.'],['다음 역으로 혼자 간다.','o','혼자 찾기는 어려울 수 있어요. 직원에게 도움을 요청해 보세요.'],['아무에게도 말하지 않고 집에 간다.','t','말해야 찾을 수 있어요. 직원에게 알려 주세요.']]},
+{scene:'역무원이 물어봐요.',who:'역무원',say:'어떤 가방이에요? 색깔을 말해 줄래요?',c:[['파란색 작은 가방이에요.','g','색깔과 크기를 말하면 더 잘 찾을 수 있어요.'],['잘 모르겠어요. 천천히 생각해 볼게요.','o','생각할 시간이 필요하면 이렇게 말해도 돼요.'],['그냥 가방이에요.','t','색깔이나 크기를 말하면 더 잘 찾을 수 있어요.']]},
+{scene:'연락처를 물어봐요.',who:'역무원',say:'찾으면 연락드릴게요. 연락처를 알려 주세요.',c:[['보호자에게 먼저 말하고 알려 드릴게요.','g','연락처는 믿을 수 있는 어른과 함께 정하는 게 안전해요.'],['잘 모르겠어요. 도와주세요.','o','모를 때는 도움을 요청해도 돼요.'],['모르는 사람에게 전화번호를 크게 말한다.','t','연락처는 믿을 수 있는 어른과 함께 알려 주는 게 안전해요.']]}]}
+);
+Object.assign(HINTS,{
+way:['길을 아는 어른에게 어디에 가고 싶은지 정중하게 물어보세요.','잘 못 듣거나 헷갈릴 때는 어떻게 하면 좋을까요? 들은 내용을 다시 말해 확인해도 좋아요.','도와준 사람에게 인사와 고마운 마음을 전해 보세요.'],
+play:['같이 놀고 싶다는 마음을 친구에게 부드럽게 물어보세요.','친구가 지금은 싫다고 했어요. 기분 나쁘지 않게 받아들이고 나중을 약속해 보세요.','친구가 같이 놀자고 했어요. 반가운 마음을 말해 보세요.'],
+lost:['누구에게 말하면 도움을 받을 수 있을까요? 무엇을 잃어버렸는지 함께 말해 보세요.','잃어버린 물건의 색깔이나 크기를 떠올려 말해 보세요. 생각이 필요하면 그렇게 말해도 돼요.','연락처는 누구와 함께 정하는 게 안전할까요? 믿을 수 있는 어른을 떠올려 보세요.']});
+
+var CATS=[
+{id:'shop',name:'먹고 사기',desc:'카페·식당·편의점',c:'#F2711C',ic:'cup',list:['cafe','food','store']},
+{id:'help',name:'도움 받기',desc:'물어보고 부탁하기',c:'#2F7BF6',ic:'help',list:['help','clinic','lost']},
+{id:'go',name:'밖에서 이동',desc:'버스·길 찾기',c:'#14A36B',ic:'bus',list:['bus','way']},
+{id:'friend',name:'친구와 대화',desc:'인사·놀기·싫어요',c:'#E5488A',ic:'face',list:['hello','play','no']}];
+/* 상황 생성기: 카테고리마다 25개 상황 x 5문제 */
+var G=function(a,b){return[a,'g',b]},O=function(a,b){return[a,'o',b]},T=function(a,b){return[a,'t',b]};
+function Q(scene,who,say,h,c){return{scene:scene,who:who,say:say,h:h,c:c}}
+var EX=[
+Q('받은 것을 확인해요.','직원','확인해 보시겠어요? 맞는지 봐 주세요.','받은 것이 맞는지 확인하고 직원에게 알려 보세요.',[G('네, 확인했어요. 맞아요.','받은 것을 직접 확인했어요.'),G('잠깐만요, 한 번 볼게요.','확인할 시간이 필요하다고 말했어요.'),T('확인하지 않고 그냥 간다.','잘못된 것이 있을 수 있어서 한 번 확인하면 좋아요.')]),
+Q('볼일이 끝났어요.','직원','안녕히 가세요. 또 오세요.','헤어지는 인사와 고마운 마음을 짧게 전해 보세요.',[G('감사합니다. 안녕히 계세요.','고마운 마음과 인사를 함께 전했어요.'),O('네.','괜찮아요. “감사합니다”를 붙이면 더 좋아요.'),T('말없이 나간다.','짧게 인사하면 서로 기분이 좋아져요.')])];
+var FX=[
+Q('칭찬을 받았어요.','친구','오늘 정말 잘했어! 멋지다!','칭찬을 받았을 때 어떤 말을 하면 좋을까요? 고마운 마음을 전해 보세요.',[G('고마워! 네가 도와줘서 그래.','칭찬에 고마운 마음을 전했어요.'),O('응.','괜찮아요. “고마워”를 붙이면 더 좋아요.'),T('아니야, 나 못해.','칭찬은 “고마워”라고 받아도 괜찮아요.')]),
+Q('친구와 살짝 부딪혔어요.','친구','앗, 아야!','내가 실수로 친구와 부딪혔어요. 어떤 마음을 먼저 말하면 좋을까요?',[G('미안해, 괜찮아?','사과와 걱정을 함께 전했어요.'),O('미안.','좋아요. “괜찮아?”를 더하면 더 좋아요.'),T('내 잘못 아니야.','실수였다면 먼저 사과하면 마음이 풀려요.')])];
+var bye=Q('헤어질 시간이에요.','친구','오늘 즐거웠어. 잘 가!','헤어지는 인사를 해 보세요. 다음에 또 만나길 바란다는 마음을 담아 보세요.',[G('나도 즐거웠어. 다음에 또 보자. 안녕!','마무리 인사를 잘했어요.'),O('안녕.','괜찮아요. 존댓말이나 따뜻한 말을 더하면 더 좋아요.'),T('말없이 돌아선다.','짧게 인사하면 좋은 기억이 남아요.')]);
+function shop(r){return {title:r[0]+'에서 주문하기',desc:'주문하고 계산하기',steps:[
+Q(r[0]+'에 왔어요. 계산대 앞이에요.','직원','어서 오세요. 무엇을 드릴까요?','먹고 싶은 메뉴와 몇 개인지 함께 말해 보세요.',[G(r[1]+' 주세요.','메뉴와 수량을 함께 말했어요.'),O('메뉴판을 가리키며 “이거요.”','가리키는 것도 좋아요. 메뉴 이름도 함께 말하면 더 정확해요.'),T('음… 그냥 아무거나요.','“아무거나”는 직원이 고르기 어려워요. 먹고 싶은 걸 하나 말해 볼까요?')]),
+Q('주문을 이어 가요.','직원',r[2],'직원이 고르라고 한 것 중에서 내가 원하는 걸 정확히 말해 보세요.',[G(r[3],'질문에 맞게 대답했어요.'),O('잠깐만요, 생각해 볼게요.','시간이 필요하면 이렇게 말해도 돼요.'),T('네.','“네”만 말하면 어떤 걸 고른 건지 알 수 없어요.')]),
+Q('결제할 차례예요.','직원',r[4]+'원입니다. 카드로 하시겠어요?','결제 방법을 어떻게 말할지 생각해 보세요. 못 들었다면 다시 물어봐도 돼요.',[G('카드로 할게요.','결제 방법을 분명하게 말했어요.'),G('죄송한데, 다시 한 번 말씀해 주시겠어요?','못 들었을 때 다시 물어보는 건 좋은 방법이에요.'),T('아무 말 없이 서 있는다.','잘 모르겠을 때는 “다시 말씀해 주세요.”라고 말해도 괜찮아요.')]),
+Q('기다리는 중이에요.','직원','준비되면 불러 드릴게요.','직원의 안내를 들었다는 걸 알려 주세요.',[G('네, 감사합니다.','짧고 친절한 인사예요.'),O('알겠어요.','좋아요. 끝에 “감사합니다”를 붙이면 더 부드러워요.'),T('대답하지 않고 자리를 찾아간다.','짧게라도 “네”라고 말하면 직원이 안심해요.')]),
+Q('받은 것이 주문한 것과 달라요.','나의 생각','주문한 것과 다른 게 나왔어요. 어떻게 하면 좋을까요?','주문한 것과 달라요. 차분하게 어떻게 말하면 직원이 도와줄까요?',[G('저기요, 제가 주문한 메뉴와 달라요. 바꿔 주실 수 있나요?','문제를 차분하게 말하고 부탁했어요.'),O('그냥 먹는다.','괜찮지만, 불편하다면 말해도 돼요.'),T('화를 내며 소리친다.','부드럽고 차분하게 말하면 직원이 더 잘 도와줘요.')])]}}
+function help(r){return {title:r[0]+'에서 '+r[1]+' 찾기',desc:'직원에게 물어보고 도움 받기',steps:[
+Q(r[0]+': 찾는 물건('+r[1]+')이 보이지 않아요. 직원이 지나가고 있어요.','나의 생각','어떻게 하면 좋을까요?','몸을 만지지 않고, 먼저 불러서 도와줄 수 있는지 부탁해 보세요.',[G('저기요, 잠깐 도와주실 수 있나요?','먼저 말로 불러서 부탁했어요.'),O('조금 더 혼자 찾아본다.','혼자 찾아보는 것도 좋아요. 어려우면 도움을 요청해도 돼요.'),T('직원의 옷이나 팔을 잡는다.','몸을 만지지 않고 말로 불러 보세요. 직원이 놀랄 수 있어요.')]),
+Q('직원이 멈춰서 나를 봐요.','직원','네, 무엇을 도와드릴까요?','내가 찾는 물건이 무엇인지, 어디 있는지 물어보세요.',[G(r[1]+' 찾고 있는데 어디 있나요?','찾는 것을 말하고 위치를 물었어요.'),G('죄송한데, 어디에 있는지 알려 주실 수 있나요?','정중하게 물었어요.'),T('이거 없어요.','무엇이 없는지 말하지 않으면 직원이 알기 어려워요.')]),
+Q('직원이 설명해 줘요.','직원','저쪽 '+r[2]+'에 있어요.','설명이 어려웠다면 어떻게 하면 좋을까요? 다시 물어보거나 함께 가 달라고 부탁해 보세요.',[G('다시 한 번 말씀해 주세요.','잘 이해되지 않으면 다시 물어도 돼요.'),G('같이 가 주실 수 있나요?','필요한 도움을 구체적으로 부탁했어요.'),T('네. (잘 모르지만 그냥 말한다)','잘 모를 때 “네”라고 하면 길을 잃을 수 있어요.')]),
+Q('찾았는데 어떤 걸 골라야 할지 모르겠어요.','나의 생각','여러 개가 있어서 고르기 어려워요.','고르기 어려울 때 누구에게 무엇을 물어보면 좋을까요?',[G('어떤 게 좋은지 추천해 주실 수 있나요?','필요한 도움을 구체적으로 물었어요.'),O('아무거나 고른다.','괜찮지만, 헷갈리면 물어봐도 돼요.'),T('고르지 못하고 그냥 나간다.','어려울 때는 도움을 요청해 보세요.')]),
+Q('도움이 끝났어요.','직원','더 필요한 거 있으세요?','도와준 사람에게 고마운 마음을 전해 보세요.',[G('아니요, 괜찮아요. 도와주셔서 감사합니다.','도움을 받은 뒤 감사 인사까지 했어요.'),O('네.','괜찮아요. 무엇이 필요한지 말해 주면 더 좋아요.'),T('말없이 간다.','짧게 “감사합니다”라고 하면 서로 기분이 좋아져요.')])]}}
+var ANS=['아니요, 저쪽 정류장에서 타세요.','아니요, 반대 방향이에요.','아니요, 다음 차를 타세요.'];
+function move(r,i){return {title:r[0]+' 타고 '+r[1]+' 가기',desc:'물어보고 타고 내리기',steps:[
+Q(r[0]+' 타러 왔어요. '+r[1]+'에 가는지 모르겠어요.','나의 생각','이거 타면 가는지 잘 모르겠어요.','타기 전에 누구에게 무엇을 물어보면 좋을까요?',[G('실례합니다. 이거 타면 '+r[1]+'에 가나요?','타기 전에 직접 물어보는 게 가장 안전해요.'),O('안내판을 다시 본다.','좋은 방법이에요. 그래도 헷갈리면 물어봐도 돼요.'),T('아무거나 탄다.','잘못 타면 길을 잃을 수 있어요. 먼저 물어봐요.')]),
+Q('안내하는 사람이 알려 줘요.','안내하는 사람',ANS[i%3],'못 들었거나 헷갈릴 때는 어떻게 하면 좋을까요? 들은 내용을 다시 확인해 보세요.',[G('다시 한 번 말씀해 주시겠어요?','잘 못 들었을 때 다시 물어보는 건 좋은 방법이에요.'),G('알려 주신 쪽에서 타면 되는 거죠? 감사합니다.','들은 내용을 다시 말해서 확인했어요.'),T('네. (잘 모르지만 그냥 말한다)','잘 모를 때 “네”라고 하면 길을 잃을 수 있어요.')]),
+Q('타고 가는 중이에요.','나의 생각','내릴 곳이 맞는지 헷갈려요.','내릴 곳이 헷갈릴 때 어떻게 하면 좋을까요? 가까운 사람에게 물어봐도 좋아요.',[G('죄송한데, 다음이 '+r[1]+'인가요?','내릴 곳을 정중하게 확인했어요.'),O('안내 방송을 더 들어 본다.','좋은 방법이에요. 그래도 모르겠으면 물어봐요.'),T('내릴 곳을 모른 채 가만히 있는다.','놓칠 수 있어요. 헷갈리면 물어봐요.')]),
+Q('내릴 곳이 가까워졌어요.','나의 생각','문 앞에 사람이 많아요.','사람이 많아서 나가기 어려울 때 어떤 말을 하면 좋을까요?',[G('죄송합니다. 내릴게요. 지나갈게요.','정중하게 말하면 사람들이 길을 비켜 줘요.'),O('조용히 기다린다.','괜찮지만, 내릴 시간이 부족할 수 있어요.'),T('사람들을 밀고 나간다.','밀면 위험해요. 말로 알려 주세요.')]),
+Q('도착했는데 출구가 여러 개예요.','나의 생각','어느 쪽으로 가야 할지 모르겠어요.','길이 헷갈릴 때 누구에게 어떻게 물어보면 좋을까요?',[G('저기요, '+r[1]+' 가려면 어느 쪽으로 가야 하나요?','가고 싶은 곳을 분명하게 물었어요.'),O('표지판을 따라간다.','좋은 방법이에요. 헷갈리면 물어봐도 돼요.'),T('아무 출구로 나간다.','잘못 나가면 길을 잃을 수 있어요.')])]}}
+function friend(r){var y=r[2]==='y';return {title:r[0],desc:y?'친구의 제안에 대답하기':'싫을 때 부드럽게 말하기',steps:[
+Q('친구를 만났어요.','친구','안녕! 오늘 어땠어?','친구가 인사하며 물어봤어요. 대답하고 친구에게도 물어보세요.',[G('안녕! 나는 괜찮아. 너는 어땠어?','대답하고 친구에게도 물어봤어요.'),O('응.','괜찮아요. 친구에게도 물어보면 대화가 이어져요.'),T('말없이 지나간다.','짧게 인사해 보세요.')]),
+Q('친구가 말을 걸어요.','친구',r[1],y?'친구가 같이 하자고 해요. 하고 싶다면 기쁜 마음을 말해 보세요.':'하고 싶지 않을 때는 어떻게 말하면 좋을까요? 부드럽지만 분명하게 말해 보세요.',y?[G('좋아! 같이 하자.','기쁜 마음을 말로 전했어요.'),G('좋아. 어떻게 하는 건지 알려 줄래?','궁금한 점을 물어봤어요.'),T('싫어. 너랑 안 해.','친구 마음이 상할 수 있어요. 부드럽게 말해 보세요.')]:[G('미안, 그건 안 될 것 같아.','싫을 때는 분명하고 부드럽게 말했어요.'),G('싫어. 하지만 다른 건 도와줄 수 있어.','거절하면서 다른 방법도 말했어요.'),T('알았어. (하기 싫지만 그냥 한다)','싫을 때는 싫다고 말해도 괜찮아요.')]),
+Q(y?'함께 하고 있어요.':'친구가 대답해요.','친구',y?'같이 해서 재미있다. 너는 어땠어?':'그래? 알았어. 그럼 다음에 하자.',y?'재미있었는지 내 마음을 말하고 고마운 마음을 전해 보세요.':'이해해 준 친구에게 어떤 말을 하면 좋을까요?',y?[G('나도 재미있었어. 같이 해서 좋아.','내 마음을 솔직하게 말했어요.'),O('응.','괜찮아요. 느낀 점을 한 마디 더하면 좋아요.'),T('별로였어.','솔직한 것도 좋지만 부드럽게 말해 보세요.')]:[G('고마워. 이해해 줘서.','이해해 준 친구에게 고마움을 전했어요.'),O('응.','괜찮아요. “고마워”를 더하면 좋아요.'),T('너 때문에 기분 나빠.','친구는 내 마음을 존중해 줬어요. 고맙다고 말해 볼까요?')]),
+FX[1],bye]}}
+var SH=[['빵집','소금빵 두 개','봉투에 따로 담아 드릴까요?','네, 따로 담아 주세요.','5,600'],['분식집','떡볶이 한 그릇','맵기는 어떻게 해 드릴까요?','보통 맛으로 해 주세요.','4,500'],['햄버거 가게','치즈버거 세트 하나','음료는 무엇으로 하시겠어요?','콜라로 주세요.','7,900'],['아이스크림 가게','바닐라 아이스크림 하나','컵으로 드릴까요, 콘으로 드릴까요?','콘으로 주세요.','3,000'],['치킨집','후라이드치킨 한 마리','포장해 드릴까요, 드시고 가실까요?','포장해 주세요.','19,000'],['김밥집','참치김밥 한 줄','단무지를 뺄까요?','아니요, 넣어 주세요.','4,000'],['피자 가게','치즈피자 한 판','크기는 어떤 걸로 하시겠어요?','중간 크기로 주세요.','17,000'],['도넛 가게','초코 도넛 세 개','한 상자에 담아 드릴까요?','네, 한 상자에 담아 주세요.','6,300'],['중국집','짜장면 하나','보통으로 드릴까요, 곱빼기로 드릴까요?','보통으로 주세요.','7,000'],['샌드위치 가게','에그 샌드위치 하나','빵은 어떤 걸로 하시겠어요?','통밀빵으로 주세요.','5,500'],['주스 가게','딸기주스 한 잔','얼음을 넣어 드릴까요?','네, 조금만 넣어 주세요.','4,800'],['국밥집','돼지국밥 하나','밥을 말아 드릴까요, 따로 드릴까요?','따로 주세요.','9,000'],['와플 가게','딸기 와플 하나','시럽을 뿌려 드릴까요?','네, 조금만 뿌려 주세요.','5,200'],['도시락 가게','불고기 도시락 하나','밥은 많이 드릴까요?','보통으로 주세요.','6,500'],['팥빙수 가게','팥빙수 하나','우유를 더 넣어 드릴까요?','네, 넣어 주세요.','8,000'],['호떡 포장마차','호떡 두 개','꿀을 넣은 걸로 드릴까요?','네, 꿀 넣은 걸로 주세요.','2,000'],['샐러드 가게','닭가슴살 샐러드 하나','드레싱은 어떤 걸로 드릴까요?','오리엔탈 드레싱으로 주세요.','7,500'],['푸드코트 비빔밥집','돌솥비빔밥 하나','고추장은 넣어 드릴까요?','조금만 넣어 주세요.','8,500'],['타코 가게','치킨 타코 두 개','소스는 어떤 걸로 드릴까요?','순한 소스로 주세요.','8,800'],['우동집','우동 하나','면 양은 어떻게 해 드릴까요?','보통으로 주세요.','6,800'],['순대국집','순대국 하나','깍두기를 더 드릴까요?','네, 조금 더 주세요.','8,000'],['베이글 가게','플레인 베이글 하나','크림치즈를 발라 드릴까요?','네, 발라 주세요.','4,500']];
+var HP=[['마트','계란','냉장 코너 안쪽'],['문구점','공책','안쪽 선반'],['도서관','동화책','어린이 책 코너'],['약국','반창고','계산대 옆'],['신발 가게','운동화','매장 안쪽'],['서점','그림책','입구 쪽 책장'],['장난감 가게','퍼즐','이 층 안쪽'],['문구점','색연필','계산대 뒤쪽'],['마트','라면','가운데 줄'],['편의점','우산','출입문 옆'],['백화점','화장실','복도 끝'],['공원','화장실','길 끝'],['영화관','매표소','계단 위'],['놀이공원','매표소','정문 오른쪽'],['병원','약 받는 곳','일 층 안내 데스크 옆'],['백화점','엘리베이터','매장 가운데'],['도서관','열람실','이 층 오른쪽'],['박물관','출구','오른쪽 문'],['우체국','번호표 기계','입구 왼쪽'],['은행','번호표 기계','입구 안쪽'],['학교','보건실','일 층 복도 끝'],['시장','양말 가게','두 번째 골목']];
+var MV=[['버스','도서관'],['지하철','시청역'],['마을버스','박물관'],['기차','부산'],['시내버스','병원'],['셔틀버스','놀이공원'],['공항버스','공항'],['순환버스','시장'],['버스','수영장'],['지하철','동물원'],['버스','영화관'],['마을버스','복지관'],['지하철','학교 근처 역'],['버스','우체국'],['버스','문화센터'],['지하철','미술관'],['기차','서울역'],['버스','과학관'],['버스','해수욕장'],['지하철','백화점'],['버스','터미널'],['마을버스','공원'],['시내버스','체육관']];
+var FR=[['친구와 점심 먹기','같이 점심 먹자!','y'],['친구와 보드게임 하기','우리 보드게임 같이 할래?','y'],['친구와 그림 그리기','같이 그림 그릴래?','y'],['친구와 공원 가기','학교 끝나고 공원에 놀러 갈래?','y'],['친구 생일 초대 받기','이번 주말에 내 생일 파티에 올래?','y'],['친구와 도서관 가기','같이 도서관에서 책 읽을래?','y'],['친구와 간식 나누기','이 과자 같이 먹자.','y'],['친구와 줄넘기 하기','같이 줄넘기 할래?','y'],['친구와 노래 부르기','같이 노래 부를래?','y'],['친구와 과제 하기','우리 같이 과제 할래?','y'],['숙제 대신 해 달라는 부탁 거절하기','내 숙제 좀 대신 해 줘.','n'],['물건 가져가겠다는 말 거절하기','네 필통 내가 가져가도 돼?','n'],['돈 빌려 달라는 부탁 거절하기','용돈 좀 빌려줄 수 있어?','n'],['위험한 놀이 거절하기','높은 곳에서 뛰어내리기 해 보자!','n'],['비밀 지키라는 부탁 거절하기','이거 어른들한테 절대 말하지 마.','n'],['밤에 몰래 놀자는 제안 거절하기','밤에 몰래 나와서 놀자.','n'],['사진 보내자는 제안 거절하기','네 사진 다른 애들한테 보내도 돼?','n'],['친구 놀리기 거절하기','쟤 같이 놀리자.','n'],['시험 답 보여 달라는 부탁 거절하기','시험 때 답 좀 보여 줘.','n'],['모르는 사람 따라가자는 제안 거절하기','저 아저씨가 맛있는 거 준대. 같이 가자.','n'],['게임 비밀번호 알려 달라는 부탁 거절하기','네 게임 비밀번호 알려 줘.','n'],['억지로 먹으라는 말 거절하기','이거 한 입만 먹어 봐. 꼭 먹어야 해!','n']];
+function addAll(cid,rows,fn,pre){var c=CATS.filter(function(x){return x.id===cid})[0];rows.forEach(function(r,i){var s=fn(r,i);s.id=pre+(i+1);S.push(s);c.list.push(s.id)})}
+addAll('shop',SH,shop,'shop');addAll('help',HP,help,'help');addAll('go',MV,move,'go');addAll('friend',FR,friend,'friend');
+CATS.forEach(function(c){c.list.forEach(function(id){var s=S.filter(function(x){return x.id===id})[0],ex=c.id==='friend'?FX:EX,need=5-s.steps.length;if(need>0)(need>=2?ex:ex.slice(1)).forEach(function(q){s.steps.push(q)})})});
+var SC={};S.forEach(function(s){SC[s.id]=s});
+/* 돌발 게임 전용 상황: 일반 학습 목록에는 나타나지 않아요. */
+var RANDOM_SCENES=[
+{id:'surprise_buscard',title:'버스에서 카드를 잃어버렸어요',desc:'당황하지 않고 도움 요청하기',steps:[Q('버스에서 내리려는데 교통카드가 안 보여요.','나의 생각','카드가 없어요. 어떻게 하지?','당황해도 괜찮아요. 누구에게 어떤 도움을 부탁할지 말해 보세요.',[G('기사님, 카드를 잃어버렸어요. 도와주실 수 있나요?','상황과 필요한 도움을 함께 말했어요.'),O('잠깐만요, 찾아볼게요.','먼저 찾아보는 것도 좋아요. 그래도 안 보이면 도움을 요청해요.'),T('아무 말 없이 내린다.','카드를 잃어버렸다면 믿을 수 있는 어른에게 알려야 해요.')]),Q('기사님이 물어봐요.','기사님','어디에서 카드를 사용하셨어요?','아는 만큼 차분하게 설명해 보세요.',[G('버스에 타기 전에 있었는데 지금은 안 보여요.','기억나는 일을 차분히 설명했어요.'),G('잘 모르겠어요. 보호자에게 연락해도 될까요?','모를 때 믿을 수 있는 어른에게 도움을 요청했어요.'),T('화내며 기사님 탓을 한다.','화가 나도 차분하게 상황을 말하는 게 좋아요.')])]},
+{id:'surprise_wrongorder',title:'주문한 음식이 달라요',desc:'차분하게 다시 부탁하기',steps:[Q('식당에서 음식이 나왔는데 주문한 것과 달라요.','나의 생각','어떻게 말하면 좋을까요?','틀린 점과 원하는 도움을 함께 말해 보세요.',[G('저기요, 제가 주문한 것과 달라요. 확인해 주실 수 있나요?','문제를 차분하게 말하고 도움을 부탁했어요.'),O('일단 기다려 본다.','기다려도 괜찮지만, 다르면 직원에게 알려도 돼요.'),T('큰 소리로 화낸다.','차분하게 말하면 더 잘 해결할 수 있어요.')]),Q('직원이 확인하겠다고 해요.','직원','주문서를 확인해 볼게요.','기다리겠다는 말과 고마운 마음을 전해 보세요.',[G('네, 확인해 주세요. 감사합니다.','부탁과 감사를 함께 말했어요.'),O('알겠어요.','괜찮아요. 고맙다는 말을 붙이면 더 좋아요.'),T('빨리 해 주세요!','재촉하기보다 차분히 기다려 보는 게 좋아요.')])]},
+{id:'surprise_lostchild',title:'사람 많은 곳에서 보호자와 떨어졌어요',desc:'안전한 사람에게 도움 요청하기',steps:[Q('사람이 많은 곳에서 보호자가 보이지 않아요.','나의 생각','어떻게 해야 안전할까요?','아무나 따라가지 말고 안전한 도움을 요청해 보세요.',[G('직원에게 보호자와 떨어졌다고 말할게요.','안전한 직원에게 도움을 요청했어요.'),G('여기서 기다리며 보호자에게 전화해 볼게요.','움직이지 않고 연락을 시도하는 것도 좋아요.'),T('모르는 사람을 따라가서 찾는다.','모르는 사람을 따라가지 말고 직원에게 도움을 요청해요.')]),Q('직원이 다가와요.','직원','무슨 일이에요?','현재 상황을 짧고 분명하게 설명해 보세요.',[G('보호자와 떨어졌어요. 여기서 기다리고 싶어요.','상황과 원하는 도움을 분명하게 말했어요.'),G('보호자 이름과 전화번호를 보여 드릴게요.','알고 있는 정보를 안전하게 전달했어요.'),T('아무 말 없이 밖으로 나간다.','혼자 밖으로 나가면 더 찾기 어려워요.')])]},
+{id:'surprise_phone',title:'모르는 번호로 전화가 왔어요',desc:'개인정보를 지키며 대답하기',steps:[Q('모르는 번호에서 전화가 왔어요.','나의 생각','받아도 될까요?','개인정보를 바로 말하지 않는 방법을 생각해 보세요.',[G('받지 않고 보호자에게 먼저 물어볼게요.','모르는 전화는 믿을 수 있는 어른과 확인하는 게 안전해요.'),G('받더라도 이름과 주소는 말하지 않을게요.','개인정보를 지키겠다고 생각했어요.'),T('주소와 학교 이름을 바로 말한다.','모르는 사람에게 개인정보를 알려 주면 안 돼요.')]),Q('상대방이 개인정보를 물어요.','모르는 사람','이름과 주소를 알려 줄래?','싫거나 불안할 때 분명히 거절하고 도움을 요청해 보세요.',[G('말하지 않을게요. 보호자에게 물어볼게요.','개인정보를 지키고 도움을 요청했어요.'),G('전화를 끊고 믿을 수 있는 어른에게 말할게요.','안전한 행동을 선택했어요.'),T('네, 다 알려 준다.','개인정보는 알려 주지 말고 어른에게 알려야 해요.')])]},
+{id:'surprise_queue',title:'줄을 서 있는데 누군가 앞에 서요',desc:'예의 있게 내 차례 말하기',steps:[Q('가게에서 줄을 서 있는데 누군가 앞에 섰어요.','나의 생각','어떻게 말하면 좋을까요?','화내지 않고 내 차례를 알려 보세요.',[G('죄송하지만 제가 먼저 줄을 서 있었어요.','예의 있게 내 차례를 알려 줬어요.'),O('직원에게 차례를 확인해 달라고 부탁한다.','직원에게 도움을 요청하는 것도 좋아요.'),T('밀어서 뒤로 보낸다.','밀지 말고 말로 알려 주세요.')]),Q('상대방이 미안하다고 해요.','상대방','미안해. 몰랐어.','상대방의 말을 듣고 짧게 대답해 보세요.',[G('괜찮아요. 뒤에 서 주시면 돼요.','차분하게 상황을 정리했어요.'),O('네.','괜찮아요. 부드럽게 말하면 더 좋아요.'),T('왜 그랬어요? 화내며 따진다.','사과를 받았다면 차분히 받아줘도 좋아요.')])]},
+{id:'surprise_rain',title:'갑자기 비가 와요',desc:'필요한 도움 부탁하기',steps:[Q('밖에 나왔는데 갑자기 비가 와요. 우산이 없어요.','나의 생각','어떻게 하면 좋을까요?','안전한 곳과 필요한 도움을 말해 보세요.',[G('가게에 들어가 비를 피하고 보호자에게 연락할게요.','안전한 방법을 생각했어요.'),G('직원에게 우산을 살 수 있는지 물어볼게요.','필요한 것을 정중하게 물었어요.'),T('차도로 뛰어가서 비를 피한다.','차도는 위험해요. 안전한 곳으로 이동해야 해요.')]),Q('가게 직원이 물어봐요.','직원','무엇을 찾으세요?','필요한 것을 분명하게 말해 보세요.',[G('우산을 사고 싶어요. 어디에 있나요?','원하는 물건과 위치를 함께 물었어요.'),O('비를 피하고 싶어요. 잠깐 있어도 될까요?','도움을 정중하게 부탁했어요.'),T('아무 말 없이 물건을 가져간다.','필요한 것은 꼭 말로 부탁해야 해요.')])]},
+{id:'surprise_friendsecret',title:'친구가 비밀을 지켜 달라고 해요',desc:'안전하지 않은 비밀 구분하기',steps:[Q('친구가 걱정되는 비밀을 말해요.','친구','어른에게 절대 말하지 마.','안전과 관련된 비밀은 믿을 수 있는 어른에게 알려야 해요.',[G('걱정되는 일은 믿을 수 있는 어른에게 말할게.','안전을 위해 도움을 요청했어요.'),G('네가 걱정돼. 같이 어른에게 말해 보자.','친구를 걱정하며 안전한 방법을 제안했어요.'),T('응, 아무에게도 말하지 않을게.','위험하거나 걱정되는 일은 혼자 숨기지 않아도 돼요.')]),Q('친구가 불안해 보여요.','나의 생각','친구를 어떻게 도울까요?','친구를 혼자 두지 말고 도움을 연결해 보세요.',[G('같이 선생님께 가서 이야기하자.','친구와 함께 믿을 수 있는 어른을 찾아갔어요.'),O('괜찮은지 물어보고 곁에 있어 준다.','친구의 마음을 살피는 것도 좋아요.'),T('모른 척하고 자리를 피한다.','걱정되는 친구를 혼자 두지 않는 게 좋아요.')])]},
+{id:'surprise_shopchange',title:'계산할 때 금액이 달라요',desc:'다시 확인하고 말하기',steps:[Q('계산하려는데 생각한 금액과 달라요.','직원','모두 12,000원입니다.','금액이 헷갈리면 정중하게 다시 확인해 보세요.',[G('죄송한데 금액을 다시 확인해 주실 수 있나요?','헷갈리는 점을 정중하게 물었어요.'),G('잠깐만요. 보호자에게 먼저 물어볼게요.','도움이 필요할 때 멈추고 물어봤어요.'),T('확인하지 않고 돈을 바로 낸다.','모를 때는 다시 확인해도 괜찮아요.')]),Q('직원이 금액을 다시 알려 줘요.','직원','확인해 보니 10,000원이에요.','확인한 뒤 어떤 말을 하면 좋을까요?',[G('알려 주셔서 감사합니다.','확인하고 감사 인사를 했어요.'),O('네, 알겠어요.','괜찮아요. 고맙다는 말을 더해도 좋아요.'),T('왜 처음에 틀리게 말했어요?','실수일 수 있으니 차분하게 말해요.')])]},
+{id:'surprise_library',title:'도서관에서 조용히 도움 요청하기',desc:'작은 목소리로 부탁하기',steps:[Q('찾는 책이 높은 곳에 있어요.','나의 생각','어떻게 부탁하면 좋을까요?','주변을 방해하지 않는 목소리로 도움을 요청해 보세요.',[G('사서 선생님, 책을 꺼내 주실 수 있나요?','필요한 도움을 정중하게 부탁했어요.'),O('발판이 있는지 물어본다.','도움을 요청하는 좋은 방법이에요.'),T('책장에 올라가서 꺼낸다.','높은 곳에 올라가면 위험할 수 있어요.')]),Q('사서 선생님이 책을 건네요.','사서 선생님','여기 있어요.','도움을 받은 뒤 짧게 인사해 보세요.',[G('감사합니다.','짧고 알맞은 인사예요.'),O('네.','괜찮아요. 감사하다는 말을 붙여 보세요.'),T('말없이 가져간다.','도움을 받으면 고마운 마음을 전해요.')])]},
+{id:'surprise_gameinvite',title:'온라인 게임 초대를 받았어요',desc:'개인정보와 약속 지키기',steps:[Q('모르는 사람이 게임 친구 신청을 했어요.','나의 생각','어떻게 하면 안전할까요?','개인정보를 지키는 방법을 말해 보세요.',[G('받지 않고 보호자에게 먼저 물어볼게요.','모르는 사람과는 바로 연결하지 않는 게 안전해요.'),G('이름과 학교를 알려 달라고 해도 말하지 않을게요.','개인정보를 지키겠다고 했어요.'),T('이름과 사진을 바로 보낸다.','개인정보와 사진은 함부로 보내면 안 돼요.')]),Q('상대가 다른 곳에서 만나자고 해요.','모르는 사람','우리만 아는 곳에서 만나자.','온라인에서 만난 사람의 제안은 어떻게 할까요?', [G('만나지 않을게요. 보호자에게 말할게요.','위험할 수 있는 제안을 거절하고 도움을 요청했어요.'),G('대화를 멈추고 차단할게요.','안전을 위해 관계를 끊는 방법을 선택했어요.'),T('아무에게도 말하지 않고 만나러 간다.','모르는 사람을 혼자 만나러 가면 안 돼요.')])]},
+];
+RANDOM_SCENES.forEach(function(x){SC[x.id]=x});
+var RANDOM_IDS=RANDOM_SCENES.map(function(x){return x.id});
+var ICON={
+cup:'<path d="M9 17h24v12a10 10 0 0 1-10 10h-4A10 10 0 0 1 9 29z"/><path d="M33 20h3a5 5 0 0 1 0 10h-3"/><path d="M17 8v4M25 8v4"/>',
+help:'<circle cx="24" cy="24" r="15"/><circle cx="24" cy="24" r="6"/><path d="M13.4 13.4l6.4 6.4M28.2 28.2l6.4 6.4M34.6 13.4l-6.4 6.4M19.8 28.2l-6.4 6.4"/>',
+bus:'<rect x="8" y="9" width="32" height="26" rx="6"/><path d="M8 24h32M16 35v5M32 35v5"/><circle cx="16" cy="29.5" r="1.2"/><circle cx="32" cy="29.5" r="1.2"/>',
+face:'<circle cx="24" cy="24" r="16"/><path d="M16 28c2 4 14 4 16 0"/><circle cx="18" cy="20" r="1.4"/><circle cx="30" cy="20" r="1.4"/>',
+mic:'<rect x="17" y="5" width="14" height="24" rx="7"/><path d="M10 23a14 14 0 0 0 28 0M24 37v6"/>',
+list:'<rect x="8" y="9" width="32" height="9" rx="4.5"/><rect x="8" y="22" width="32" height="9" rx="4.5"/><rect x="8" y="35" width="20" height="7" rx="3.5"/>'};
+function ico(k,s){return '<svg class="ic" width="'+s+'" height="'+s+'" viewBox="0 0 48 48" aria-hidden="true">'+ICON[k]+'</svg>'}
+function mas(m,s){
+  var mouth=m==='cheer'?'<path d="M22 38q10 12 20 0z" fill="#B3402E" stroke="#B3402E"/>':m==='think'?'<path d="M26 42h12"/>':'<path d="M23 39q9 8 18 0"/>';
+  var brow=m==='think'?'<path d="M19 24l9-3M45 24l-9-3"/>':'';
+  var arms=m==='cheer'?'<path d="M9 38L3 25M55 38l6-13" stroke="#F3A712" stroke-width="5" stroke-linecap="round"/>':'';
+  return '<svg class="mas" width="'+s+'" height="'+s+'" viewBox="0 0 64 64" aria-hidden="true">'+arms+'<circle cx="32" cy="35" r="24" fill="#FFC93C"/><circle cx="18" cy="43" r="4" fill="#FF9DB4" opacity=".75"/><circle cx="46" cy="43" r="4" fill="#FF9DB4" opacity=".75"/><circle cx="24" cy="31" r="3" fill="#23324A"/><circle cx="40" cy="31" r="3" fill="#23324A"/><g fill="none" stroke="#23324A" stroke-width="3" stroke-linecap="round">'+brow+mouth+'</g><path d="M32 11V6" stroke="#1F6AE1" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="5" r="3.5" fill="#1F6AE1"/></svg>';
+}
+function star(on,s){return '<svg class="star'+(on?' on':'')+'" width="'+s+'" height="'+s+'" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.2 4.9 1.4 7L12 17.8 5.8 21.3l1.4-7L2 9.4l7-.9z"/></svg>'}
+function $(i){return document.getElementById(i)}
+
+/* 진행 기록: 이 기기의 브라우저에만 저장돼요 */
+var KEY='maeum-progress-v1',mem={};
+function loadP(){var d={};try{d=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}for(var k in mem){if(!d[k]||d[k]<mem[k])d[k]=mem[k]}return d}
+function saveP(id,n){if(!mem[id]||mem[id]<n)mem[id]=n;var d={};try{d=JSON.parse(localStorage.getItem(KEY)||'{}');if(!d[id]||d[id]<n){d[id]=n;localStorage.setItem(KEY,JSON.stringify(d))}}catch(e){}}
+
+var mode=null,micOK=false,cat=null,sid=null,idx=0,fails=0,good=0,answered=false,lastWrong=null,banned=[],usedD=[],rec=null;
+function ready(){return mode==='choice'||(mode==='voice'&&micOK)}
+function curStep(){return SC[sid].steps[idx]}
+function hintFor(){return curStep().h||(HINTS[sid]||[])[idx]||'지금 내가 원하는 것이 무엇인지 생각해 보세요.'}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function norm(s){return String(s||'').toLowerCase().replace(/[^가-힣a-z0-9]/gi,'')}
+function speechNorm(s){var x=norm(s);['어','음','저기요','저기','아','그'].forEach(function(w){while(x.indexOf(w)===0&&x.length>w.length+1)x=x.slice(w.length)});return x.replace(/한잔/g,'한잔').replace(/주세요$/,'주세요')}
+function dice(a,b){a=speechNorm(a);b=speechNorm(b);if(!a||!b)return 0;if(a===b)return 1;if(a.indexOf(b)>=0||b.indexOf(a)>=0)return .94;var A={},n=0,m=0,h=0,i,k;for(i=0;i<a.length-1;i++){k=a.substr(i,2);A[k]=(A[k]||0)+1;n++}for(i=0;i<b.length-1;i++){k=b.substr(i,2);m++;if(A[k]>0){A[k]--;h++}}return n+m?2*h/(n+m):0}
+function bad(t){return /(씨발|시발|병신|미친|꺼져|닥쳐|죽어|개새|지랄)/.test(norm(t))}
+function intentWords(s){
+  var stop=['어떻게','하면','좋을까','좋아요','말해','말을','말할','해야','해요','하세요','해주세요','주세요','주실','수있','있나요','있어요','없어요','없나요','저기요','죄송한데','죄송','네','아니요','괜찮아요','그냥','잠깐','좀','더','하나','이거','저거','것','싶어요','싶어','할게요','할래','합니다','입니다'];
+  return String(s||'').replace(/[“”?!.,]/g,' ').split(/\s+/).map(function(w){return w.replace(/(을|를|이|가|은|는|도|에|에서|으로|로|에게|한테|께|와|과|만|부터|까지|요|어요|아요|해요|세요|니다)$/,'')}).filter(function(w){if(w.length<2)return false;return stop.indexOf(w)<0&&!/^['"“”‘’]+$/.test(w)});
+}
+function intentScore(a,b){
+  var aw=intentWords(a),bw=intentWords(b),hits=0;
+  bw.forEach(function(w){if(aw.some(function(x){return x===w||x.indexOf(w)>=0||w.indexOf(x)>=0||x.slice(0,2)===w.slice(0,2)}))hits++});
+  var textA=norm(a),textB=norm(b);if(textA&&textB&&(textA.indexOf(textB)>=0||textB.indexOf(textA)>=0))return 1;
+  return bw.length?hits/bw.length: dice(a,b);
+}
+
+/* 홈 */
+function setMode(m){
+  mode=m;
+  [].forEach.call(document.querySelectorAll('.mode'),function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-m')===m))});
+  $('modeNote').textContent=m==='voice'?'마이크를 사용해요. 조용한 곳에서 하면 더 잘 들려요.':m==='choice'?'소리 없이 눌러서 연습해요. 지하철이나 카페에서도 편하게 할 수 있어요.':'';
+  $('chip').textContent=m==='voice'?'소리 내어 말하기':m==='choice'?'선택해서 말하기':'';
+  $('chip').classList.toggle('hide',!m);
+  $('micGate').classList.toggle('hide',!(m==='voice'&&!micOK));
+  $('lockmsg').textContent='';
+  renderCats();
+}
+function renderCats(){
+  var p=loadP(),g=$('cats');g.innerHTML='';g.classList.toggle('locked',!ready());
+  CATS.forEach(function(c){
+    var done=c.list.filter(function(i){return p[i]}).length,b=document.createElement('button');
+    b.type='button';b.className='cat';b.style.setProperty('--c',c.c);
+    b.innerHTML='<span class="tile">'+ico(c.ic,34)+'</span><span class="catn">'+c.name+'</span><span class="sub">'+c.desc+'</span><span class="prog">'+done+' / '+c.list.length+' 완료</span>';
+    b.onclick=function(){if(!ready()){var m=$('lockmsg');m.textContent=mode?'먼저 마이크를 허용해 주세요.':'먼저 ①에서 연습 방법을 골라 주세요.';m.classList.remove('shake');void m.offsetWidth;m.classList.add('shake');return}openCat(c)};
+    g.appendChild(b);
+  });
+}
+function openCat(c){
+  cat=c;var p=loadP();
+  $('catTile').style.setProperty('--c',c.c);$('catTile').innerHTML=ico(c.ic,38);
+  $('catTitle').textContent=c.name;$('catDesc').textContent=c.desc;
+  var l=$('scl');l.innerHTML='';
+  var todo=document.createElement('div'),done=document.createElement('div');
+  todo.className='lessonGroup';done.className='lessonGroup';
+  todo.innerHTML='<h2>아직 안 푼 상황</h2><div class="scl"></div>';
+  done.innerHTML='<h2>푼 상황</h2><div class="scl"></div>';
+  var tg=todo.querySelector('.scl'),dg=done.querySelector('.scl');
+  c.list.forEach(function(id){
+    var s=SC[id],n=p[id]||0,b=document.createElement('button');
+    b.type='button';b.className='sc '+(n?'done':'todo');b.style.setProperty('--c',c.c);
+    b.innerHTML='<span class="tile">'+ico(c.ic,28)+'</span><span><b>'+s.title+'</b><span class="sub">'+s.desc+' · '+s.steps.length+'문제'+(n?' · '+n+'별 완료':'')+'</span></span><span class="stars" aria-label="별 '+n+'개">'+star(n>0,22)+star(n>1,22)+star(n>2,22)+'</span>';
+    b.onclick=function(){start(id)};(n?dg:tg).appendChild(b);
+  });
+  if(!tg.children.length)todo.innerHTML+='<p class="sub">모든 상황을 풀었어요. 정말 잘했어요!</p>';
+  if(!dg.children.length)done.classList.add('hide');
+  l.appendChild(todo);l.appendChild(done);var rb=$('reviewBox');rb.innerHTML='';var solved=c.list.filter(function(id){return p[id]});if(solved.length>=5){var weak=c.list.filter(function(id){return (p[id]||0)<3}).sort(function(a,b){return (p[a]||0)-(p[b]||0)});if(weak.length){var rv=document.createElement('button');rv.type='button';rv.className='btn reviewBox';rv.textContent='많이 틀린 상황 다시 풀기';rv.onclick=function(){start(weak[0])};rb.appendChild(rv)}}show('cat');
+}
+
+/* 마이크 허용 */
+function askMic(){
+  var st=$('micState'),R=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!R){st.textContent='이 브라우저는 음성 인식을 지원하지 않아요. 크롬이나 사파리를 쓰거나 “선택해서 말하기”를 이용해 주세요.';return}
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){st.textContent='이 화면에서는 마이크를 쓸 수 없어요. “선택해서 말하기”를 이용해 주세요.';return}
+  st.textContent='마이크 허용 창이 뜨면 “허용”을 눌러 주세요.';
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){
+    s.getTracks().forEach(function(t){t.stop()});micOK=true;st.textContent='마이크가 준비됐어요!';setMode('voice');
+  }).catch(function(e){
+    micOK=false;st.textContent=(e&&e.name==='NotAllowedError')?'마이크가 허용되지 않았어요. 주소창 옆 아이콘에서 마이크를 허용하거나 “선택해서 말하기”를 이용해 주세요.':'마이크를 찾을 수 없어요. 마이크가 연결되어 있는지 확인해 주세요.';
+  });
+}
+
+/* 연습 */
+var randomGameMode=false,randomQueue=[],randomPos=0,randomGood=0,randomQuestions=0,randomStars=0;
+function randomGame(){
+  if(levelForStars()<10){var lock=$('lockmsg');lock.textContent='레벨 10이 되면 돌발 게임이 열려요. 일반 학습으로 별을 모아 보세요.';lock.classList.remove('shake');void lock.offsetWidth;lock.classList.add('shake');return}
+  if(!ready()){var m=$('lockmsg');m.textContent=mode?'먼저 마이크를 허용해 주세요.':'먼저 ①에서 연습 방법을 골라 주세요.';m.classList.remove('shake');void m.offsetWidth;m.classList.add('shake');return}
+  randomGameMode=true;randomQueue=shuffle(RANDOM_IDS).slice(0,Math.min(5,RANDOM_IDS.length));randomPos=0;randomGood=0;randomQuestions=0;randomStars=0;startRandomRound();
+}
+function startRandomRound(){
+  sid=randomQueue[randomPos];cat=CATS.filter(function(c){return c.list.indexOf(sid)>=0})[0]||CATS[0];idx=Math.floor(Math.random()*SC[sid].steps.length);good=0;$('stage').classList.add('hide');$('listen').classList.add('hide');$('play').style.setProperty('--c',cat.c);step();show('play');
+}
+function start(id){randomGameMode=false;$('stage').classList.remove('hide');$('listen').classList.remove('hide');sid=id;idx=0;good=0;$('play').style.setProperty('--c',cat.c);step();show('play')}
+
+function hearts(){
+  var h='';for(var i=0;i<3;i++)h+='<svg class="heart'+(i<3-fails?'':' off')+'" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+  var e=$('hearts');e.innerHTML=h;e.setAttribute('aria-label','남은 기회 '+Math.max(0,3-fails)+'번');
+}
+function step(){
+  var s=SC[sid],st=curStep();
+  fails=0;answered=false;lastWrong=null;banned=[];usedD=[];
+  var g='';if(randomGameMode){for(var i=0;i<randomQueue.length;i++)g+='<i class="'+(i<randomPos?'d':i===randomPos?'cur':'')+'"></i>'}else{for(var i=0;i<s.steps.length;i++)g+='<i class="'+(i<idx?'d':i===idx?'cur':'')+'"></i>'}$('segs').innerHTML=g;
+  hearts();
+  var progress=randomGameMode?(randomPos+1)+'/'+randomQueue.length:(idx+1)+'/'+s.steps.length;
+  $('scene').textContent=s.title+' · '+progress+' · '+st.scene;
+  drawStage(st);
+  $('fb').innerHTML='';$('retry').classList.add('hide');
+  var n=$('next');
+  $('heard').classList.add('hide');$('hint').classList.add('hide');$('hintBtn').textContent='힌트 보기';
+  if(mode==='voice'){
+    $('choices').classList.add('hide');$('voice').classList.remove('hide');
+    $('mic').innerHTML=ico('mic',26)+'<span>마이크 눌러서 말하기</span>';
+    $('hint').textContent='힌트: '+hintFor();
+    n.classList.remove('hide');n.classList.add('alt');n.textContent='건너뛰기';
+  }else{
+    $('voice').classList.add('hide');$('choices').classList.remove('hide');n.classList.add('hide');
+    renderChoices(shuffle(st.c));
+  }
+}
+function renderChoices(list){
+  var c=$('choices');c.innerHTML='';c.classList.remove('lock');
+  list.forEach(function(o){
+    var b=document.createElement('button');b.type='button';b.className='choice';b.textContent=o[0];
+    b.onclick=function(){pick(o,b)};c.appendChild(b);
+  });
+}
+function fb(kind,head,body,mood){
+  var f=$('fb');f.innerHTML='<div class="fbx '+kind+'">'+mas(mood,56)+'<div><b>'+head+'</b>'+body+'</div></div>';
+}
+function showNext(){
+  var n=$('next');n.classList.remove('hide','alt');
+  n.textContent=(randomGameMode?randomPos===randomQueue.length-1:idx===SC[sid].steps.length-1)?'결과 보기':'다음';
+  if(mode==='choice'&&!$('retry').classList.contains('hide')){n.classList.add('alt')}
+  else{setTimeout(function(){n.focus()},0)}
+}
+function succeed(o,b){
+  answered=true;
+  if(o[1]==='g'&&fails===0)good++;
+  if(b)b.classList.add('right');
+  $('choices').classList.add('lock');$('retry').classList.add('hide');
+  fb(o[1]==='g'?'good':'ok',o[1]==='g'?(fails>0?'다시 해서 맞혔어요! 멋져요!':'좋아요! 잘했어요!'):'괜찮아요!',o[2],o[1]==='g'?'cheer':'happy');
+  showNext();
+}
+function fail(b,body,viaChoice){
+  fails++;hearts();
+  if(b){b.classList.add('wrong');lastWrong=b._o}
+  if(viaChoice)$('choices').classList.add('lock');
+  if(fails>=3){
+    answered=true;$('retry').classList.add('hide');
+    var ans=curStep().c.filter(function(x){return x[1]==='g'})[0]||curStep().c[0];fb('try','이번에는 이렇게 말해 볼 수 있어요.','<strong>“'+ans[0]+'”</strong><br>'+ans[2],'think');showNext();
+  }else{
+    fb('try','한 번 더 해 볼까요?',body,'think');
+    if(viaChoice){$('retry').classList.remove('hide');showNext();setTimeout(function(){$('retry').focus()},0)}
+  }
+}
+function pick(o,b){
+  if(answered)return;b._o=o;
+  if(o[1]==='t')fail(b,o[2],true);else succeed(o,b);
+}
+function retry(){
+  if(lastWrong)banned.push(lastWrong);
+  var base=curStep().c.filter(function(o){return banned.indexOf(o)<0}),guard=0;
+  while(base.length<3&&guard++<20){
+    var d=POOL[Math.floor(Math.random()*POOL.length)];
+    if(usedD.indexOf(d)<0){usedD.push(d);base.push(d)}
+  }
+  $('retry').classList.add('hide');$('next').classList.add('hide');$('fb').innerHTML='';
+  renderChoices(shuffle(base));
+  $('choices').firstChild.focus();
+}
+
+/* 음성 */
+function judge(t){
+  var heard=$('heard');heard.classList.remove('hide');heard.textContent='들린 말: “'+t+'”';
+  if(answered)return;
+  if(bad(t)){fail(null,'듣는 사람이 기분 좋게 들을 수 있는 말로, 내가 원하는 것을 차분히 말해 보세요.',false);return}
+  var bestGood=null,goodScore=0,bestWrong=null,wrongScore=0;
+  curStep().c.forEach(function(o){var score=intentScore(t,o[0].replace(/[“”]/g,''));if(o[1]==='t'){if(score>wrongScore){wrongScore=score;bestWrong=o}}else if(score>goodScore){goodScore=score;bestGood=o}});
+  /* 음성 모드는 보기 문장과 똑같이 말하지 않아도 핵심 의도가 있으면 정답 */
+  var accepted=bestGood&&(goodScore>=.34||goodScore>=wrongScore+.08);
+  if(accepted){succeed(bestGood,null)}
+  else if(bestWrong&&wrongScore>=.55){fail(null,bestWrong[2],false)}
+  else{fail(null,'말하고 싶은 뜻이 들리도록 핵심 말을 넣어 다시 말해 보세요. 예: '+hintFor()+(fails>=2?'<br>어려우면 “선택해서 말하기”로 바꿔서 보기 중에서 골라 볼 수 있어요.':''),false)}
+}
+function micErr(e){
+  fb('try',e==='no-speech'?'소리가 들리지 않았어요.':'마이크를 쓸 수 없어요.',e==='no-speech'?'마이크 버튼을 다시 눌러 말해 보세요.':'마이크 허용이 필요하거나 이 화면에서는 지원되지 않을 수 있어요. “선택해서 말하기”로 바꿔 보세요.','think');
+}
+function listenMic(){
+  if(answered)return;
+  var R=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!R){micErr('x');return}
+  var m=$('mic');
+  try{
+    rec=new R();rec.lang='ko-KR';rec.interimResults=false;
+    rec.onstart=function(){m.classList.add('listening');m.innerHTML=ico('mic',26)+'<span>듣고 있어요… 말해 보세요</span>'};
+    rec.onresult=function(e){judge(e.results[0][0].transcript)};
+    rec.onerror=function(e){micErr(e.error)};
+    rec.onend=function(){m.classList.remove('listening');m.innerHTML=ico('mic',26)+'<span>마이크 눌러서 말하기</span>'};
+    rec.start();
+  }catch(x){micErr('x')}
+}
+
+/* 결과 */
+function confetti(){if(!P.set.confetti||P.set.calm)return;
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var cols=['#F2711C','#2F7BF6','#14A36B','#E5488A','#FFC93C','#8B6CF0'];
+  for(var i=0;i<26;i++){var s=document.createElement('span');s.className='conf';s.style.left=Math.random()*100+'vw';s.style.background=cols[i%cols.length];s.style.animationDelay=Math.random()*.8+'s';document.body.appendChild(s);(function(x){setTimeout(function(){x.remove()},3800)})(s)}
+}
+function finish(){
+  var total=randomGameMode?1:SC[sid].steps.length,r=good/total,n=r>=1?3:r>=0.5?2:1;
+  if(randomGameMode){
+    var oldStars=loadP()[sid]||0,addStars=Math.max(0,n-oldStars);saveP(sid,n);P.earned+=addStars;randomGood+=good;randomQuestions+=total;randomStars+=addStars;
+    if(randomPos+1<randomQueue.length){randomPos++;saveProfile();startRandomRound();return}
+    randomGameMode=false;P.plays++;saveProfile();
+    $('doneMas').innerHTML=mas('cheer',110);$('doneTitle').textContent='돌발 게임 완료!';$('doneStars').innerHTML='<span class="big">★ '+randomStars+'개</span>';
+    $('doneText').textContent=randomQueue.length+'가지 상황, '+randomQuestions+'문제를 풀었어요. 한 번에 맞힌 문제는 '+randomGood+'개예요.';
+    $('doneReward').textContent='돌발 게임 보상 별 '+randomStars+'개 · 모은 별: '+bal();show('done');if(randomStars>=randomQueue.length*3)confetti();renderCats();return;
+  }
+  var oldStars=loadP()[sid]||0,addStars=Math.max(0,n-oldStars);saveP(sid,n);P.earned+=addStars;P.plays++;saveProfile();
+  $('doneMas').innerHTML=mas('cheer',110);
+  $('doneTitle').textContent=n===3?'대단해요! 모두 잘했어요!':'수고했어요!';
+  $('doneStars').innerHTML=star(n>0,48)+star(n>1,48)+star(n>2,48);
+  $('doneText').textContent=total+'문제 중 '+good+'문제를 한 번에 맞혔어요. 틀려도 괜찮아요. 연습할수록 점점 쉬워져요.';
+  $('doneReward').textContent='이번에 새로 받은 별 '+addStars+'개 · 모은 별: '+bal();show('done');if(n===3)confetti();renderCats();
+}
+
+/* 프로필·별·꾸미기 (이 기기의 브라우저에만 저장) */
+var PK='maeum-profile-v1',P={nick:'',hair:'#4A3220',top:'#7DB7F5',ob:false,earned:0,spent:0,owned:[],eq:{},pets:[],activePet:'',plays:0,set:{confetti:true,calm:false}};
+var BAD_NAME_WORDS=['시발','씨발','ㅅㅂ','병신','븅신','개새끼','새끼','좆','ㅈ같','존나','ㅈㄴ','fuck','shit','bitch','asshole','nigger','sex','porn','섹스','야동','강간','자살','죽어','꺼져'];
+function validName(v){var n=String(v||'').replace(/\s+/g,' ').trim().slice(0,8),q=n.toLowerCase().replace(/[^\p{L}\p{N}]+/gu,'');if(!n)return{ok:false,name:'',msg:'이름을 적어 주세요.'};if(q.length<1)return{ok:false,name:n,msg:'사용할 수 없는 이름이에요.'};for(var i=0;i<BAD_NAME_WORDS.length;i++){var w=BAD_NAME_WORDS[i].toLowerCase().replace(/[^\p{L}\p{N}]+/gu,'');if(w&&q.indexOf(w)>=0)return{ok:false,name:n,msg:'부적절한 표현이 들어간 이름은 사용할 수 없어요.'}}if(/[\u0000-\u001f<>]/.test(n))return{ok:false,name:n,msg:'사용할 수 없는 문자가 있어요.'};return{ok:true,name:n,msg:''}}
+function nameError(el,text){el.textContent=text;el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+var PETS=[{id:'pet_cat',name:'포근한 고양이',price:18,emoji:'🐱'},{id:'pet_dog',name:'꼬리 흔드는 강아지',price:20,emoji:'🐶'},{id:'pet_rabbit',name:'말랑 토끼',price:22,emoji:'🐰'},{id:'pet_hamster',name:'복슬 햄스터',price:16,emoji:'🐹'},{id:'pet_fox',name:'꼬리 큰 여우',price:28,emoji:'🦊'},{id:'pet_penguin',name:'뒤뚱 펭귄',price:25,emoji:'🐧'},{id:'pet_turtle',name:'느긋한 거북이',price:15,emoji:'🐢'},{id:'pet_panda',name:'통통 판다',price:30,emoji:'🐼'},{id:'pet_unicorn',name:'반짝 유니콘',price:45,emoji:'🦄'},{id:'pet_dragon',name:'꼬마 용',price:55,emoji:'🐲'}];
+function loadProfile(){try{var d=JSON.parse(localStorage.getItem(PK)||'null');if(d){P.nick=d.nick||'';P.earned=d.earned|0;P.spent=d.spent|0;P.owned=d.owned||[];P.eq=d.eq||{};P.plays=d.plays|0;P.pets=Array.isArray(d.pets)?d.pets:[];P.activePet=d.activePet||'';P.hair=d.hair||P.hair;P.top=d.top||P.top;P.ob=!!d.ob;P.set=Object.assign({confetti:true,calm:false},d.set||{});if(!validName(P.nick).ok)P.nick='';P.pets=P.pets.map(function(x){var v=validName(x.name);return{id:x.id,name:v.ok?v.name:''}}).filter(function(x){return PETS.some(function(p){return p.id===x.id})});if(P.activePet&&!P.pets.some(function(x){return x.id===P.activePet}))P.activePet='';}}catch(e){}}
+function saveProfile(){try{localStorage.setItem(PK,JSON.stringify(P))}catch(e){}refreshAll()}
+function bal(){return P.earned-P.spent}
+var SKIN='#F6C9A0',HAIR='<path d="M33 54c0-17 11-30 27-30s27 13 27 30c-5-9-12-14-27-14s-22 5-27 14z" fill="#4A3220"/>',
+FACE='<circle cx="50" cy="58" r="3" fill="#23324A"/><circle cx="70" cy="58" r="3" fill="#23324A"/><circle cx="43" cy="67" r="4" fill="#FF9DB4" opacity=".6"/><circle cx="77" cy="67" r="4" fill="#FF9DB4" opacity=".6"/><path d="M52 68q8 8 16 0" stroke="#23324A" stroke-width="2.6" fill="none" stroke-linecap="round"/>',
+BODY='M18 140c0-26 18-46 42-46s42 20 42 46z';
+function body(c,extra){return '<path d="'+BODY+'" fill="'+c+'"/>'+(extra||'')}
+var ITEMS=[
+['cap','hat','야구 모자',3,'<path d="M33 40c0-14 12-22 27-22s27 8 27 22z" fill="#E5484D"/><path d="M62 38h34c4 0 4 8 0 8H62z" fill="#C93A3F"/><circle cx="60" cy="18.5" r="3" fill="#C93A3F"/>'],
+['beanie','hat','털모자',4,'<path d="M33 42c0-16 12-24 27-24s27 8 27 24z" fill="#2F7BF6"/><rect x="31" y="38" width="58" height="9" rx="4.5" fill="#1F5FD0"/><circle cx="60" cy="16" r="6" fill="#fff"/>'],
+['ribbon','hat','리본',3,'<path d="M80 30l12-8v16z" fill="#F25F9B"/><path d="M80 30l-12-8v16z" fill="#F25F9B"/><circle cx="80" cy="30" r="4" fill="#C93A7A"/>'],
+['chef','hat','요리사 모자',5,'<g fill="#fff" stroke="#E2E2E2"><circle cx="46" cy="24" r="11"/><circle cx="60" cy="18" r="12"/><circle cx="74" cy="24" r="11"/><rect x="38" y="30" width="44" height="12" rx="3"/></g>'],
+['crown','hat','왕관',10,'<path d="M38 36l-2-18 12 9 12-14 12 14 12-9-2 18z" fill="#FFC93C" stroke="#E0A100" stroke-width="2" stroke-linejoin="round"/><circle cx="60" cy="19" r="2.5" fill="#E5484D"/>'],
+['round','glasses','동그란 안경',3,'<g fill="rgba(255,255,255,.35)" stroke="#23324A" stroke-width="2.4"><circle cx="50" cy="58" r="9"/><circle cx="70" cy="58" r="9"/><path d="M59 58h2M41 57l-6 1M79 57l6 1"/></g>'],
+['sun','glasses','멋진 선글라스',4,'<g fill="#23324A"><rect x="38" y="51" width="20" height="14" rx="6"/><rect x="62" y="51" width="20" height="14" rx="6"/></g><path d="M58 56h4" stroke="#23324A" stroke-width="2.4"/>'],
+['heart','glasses','하트 안경',5,'<g fill="#F25F9B"><path d="M50 68c-10-6-11-13-6-14 3-.5 5 2 6 3 1-1 3-3.5 6-3 5 1 4 8-6 14z"/><path d="M70 68c-10-6-11-13-6-14 3-.5 5 2 6 3 1-1 3-3.5 6-3 5 1 4 8-6 14z"/></g>'],
+['green','outfit','초록 티셔츠',3,body('#3FB27F','<path d="M48 96q12 10 24 0" stroke="#2E8F63" stroke-width="3" fill="none"/>')],
+['red','outfit','별 티셔츠',4,body('#E5484D','<path d="M60 108l3 7 7 .8-5.2 5 1.4 7-6.2-3.6-6.2 3.6 1.4-7-5.2-5 7-.8z" fill="#FFE08A"/>')],
+['hoodie','outfit','노란 후드',5,body('#FFC93C','<path d="M42 96q18 18 36 0" fill="none" stroke="#E0A100" stroke-width="5" stroke-linecap="round"/><path d="M54 108v14M66 108v14" stroke="#fff" stroke-width="2.5"/>')],
+['jacket','outfit','파란 점퍼',6,body('#2F7BF6','<path d="M60 96v44" stroke="#fff" stroke-width="3"/><path d="M48 94l12 12 12-12" fill="none" stroke="#fff" stroke-width="3"/>')],
+['dress','outfit','분홍 원피스',6,body('#F25F9B','<path d="M46 96l14 14 14-14z" fill="#fff"/>')],
+['necklace','extra','별 목걸이',3,'<path d="M46 92q14 16 28 0" fill="none" stroke="#BDBDBD" stroke-width="2"/><path d="M60 100l2.5 5.5 6 .6-4.5 4 1.3 6-5.3-3-5.3 3 1.3-6-4.5-4 6-.6z" fill="#FFC93C"/>'],
+['bowtie','extra','나비넥타이',3,'<path d="M60 94l-11-6v12zM60 94l11-6v12z" fill="#8B6CF0"/><circle cx="60" cy="94" r="3" fill="#6A4FD0"/>'],
+['scarf','extra','빨간 목도리',4,'<path d="M44 90q16 12 32 0l3 9q-19 12-38 0z" fill="#E5484D"/><path d="M70 96l6 24h-9z" fill="#C93A3F"/>'],
+['sky','bg','맑은 하늘',3,'<rect width="120" height="140" rx="20" fill="#BFE3FF"/><g fill="#fff"><circle cx="30" cy="30" r="8"/><circle cx="40" cy="28" r="10"/><circle cx="92" cy="22" r="7"/></g>'],
+['sunset','bg','노을',4,'<rect width="120" height="140" rx="20" fill="#FFB88A"/><circle cx="92" cy="30" r="12" fill="#FFE08A"/>'],
+['forest','bg','숲',4,'<rect width="120" height="140" rx="20" fill="#BFEAC4"/><path d="M0 100l15-30 15 30 12-24 14 24 12-20 14 20 14-26 24 26v40H0z" fill="#7BC98A"/>'],
+['space','bg','우주',6,'<rect width="120" height="140" rx="20" fill="#2B2F5E"/><g fill="#FFE08A"><circle cx="20" cy="24" r="2"/><circle cx="104" cy="60" r="2"/></g><g fill="#fff"><circle cx="96" cy="18" r="2.5"/><circle cx="14" cy="76" r="2"/></g>'],
+['straw','hat','밀짚모자',4,'<ellipse cx="60" cy="38" rx="42" ry="9" fill="#E8C26A"/><path d="M38 38c0-14 10-20 22-20s22 6 22 20z" fill="#F2D488"/><rect x="38" y="31" width="44" height="6" fill="#E5484D"/>'],
+['wizard','hat','마법사 모자',6,'<path d="M60 2l-24 38h48z" fill="#5B3FD0"/><ellipse cx="60" cy="40" rx="38" ry="7" fill="#4A33B0"/><path d="M60 16l2 4 4 .5-3 3 .8 4-3.8-2-3.8 2 .8-4-3-3 4-.5z" fill="#FFE08A"/>'],
+['catear','hat','고양이 귀',4,'<path d="M36 40l-2-20 16 10z" fill="#4A3220"/><path d="M84 40l2-20-16 10z" fill="#4A3220"/><path d="M39 36l-1-10 8 6z" fill="#FF9DB4"/><path d="M81 36l1-10-8 6z" fill="#FF9DB4"/>'],
+['phones','hat','헤드폰',5,'<path d="M34 56c0-24 12-34 26-34s26 10 26 34" fill="none" stroke="#3A4A7A" stroke-width="5"/><rect x="28" y="50" width="11" height="20" rx="5" fill="#E5484D"/><rect x="81" y="50" width="11" height="20" rx="5" fill="#E5484D"/>'],
+['flower','hat','꽃 머리핀',3,'<g transform="translate(40 36)" fill="#FF9DB4"><circle cy="-5" r="4.5"/><circle cx="5" r="4.5"/><circle cy="5" r="4.5"/><circle cx="-5" r="4.5"/><circle r="3.5" fill="#FFC93C"/></g>'],
+['bunny','hat','토끼 귀',5,'<path d="M44 34c-6-24-2-32 4-32s6 14 4 32z" fill="#fff" stroke="#E2E2E2"/><path d="M76 34c6-24 2-32-4-32s-6 14-4 32z" fill="#fff" stroke="#E2E2E2"/><path d="M47 28c-3-14-1-20 1-20s3 8 2 20z" fill="#FFB3C7"/><path d="M73 28c3-14 1-20-1-20s-3 8-2 20z" fill="#FFB3C7"/>'],
+['stargl','glasses','별 안경',5,'<g fill="#FFC93C" stroke="#E0A100" stroke-width="2"><path d="M50 50l2.5 5 5.5.8-4 3.9 1 5.5-5-2.6-5 2.6 1-5.5-4-3.9 5.5-.8z"/><path d="M70 50l2.5 5 5.5.8-4 3.9 1 5.5-5-2.6-5 2.6 1-5.5-4-3.9 5.5-.8z"/></g>'],
+['bluegl','glasses','파란 안경',4,'<g fill="rgba(255,255,255,.4)" stroke="#2F7BF6" stroke-width="3"><rect x="40" y="51" width="20" height="14" rx="4"/><rect x="60" y="51" width="20" height="14" rx="4"/></g>'],
+['stripe','outfit','줄무늬 티',4,body('#fff','<g stroke="#2F7BF6" stroke-width="5"><path d="M28 112h64M22 126h76M20 138h80"/></g>')],
+['spacesuit','outfit','우주복',7,body('#EDEFF5','<circle cx="60" cy="116" r="9" fill="#2F7BF6"/><path d="M40 104l8 6M80 104l-8 6" stroke="#E5484D" stroke-width="4"/><path d="M48 96q12 10 24 0" stroke="#B9BFD0" stroke-width="3" fill="none"/>')],
+['rain','outfit','노란 우비',5,body('#FFD43B','<path d="M48 96q12 12 24 0" stroke="#E0A100" stroke-width="3" fill="none"/><circle cx="60" cy="112" r="2.5" fill="#E0A100"/><circle cx="60" cy="124" r="2.5" fill="#E0A100"/>')],
+['overall','outfit','멜빵바지',5,body('#fff','<path d="M44 140v-30q16 8 32 0v30z" fill="#3B6FD8"/><path d="M46 106l-4-12M74 106l4-12" stroke="#3B6FD8" stroke-width="5"/><circle cx="52" cy="112" r="2" fill="#FFC93C"/><circle cx="68" cy="112" r="2" fill="#FFC93C"/>')],
+['chefc','outfit','요리사 옷',6,body('#fff','<path d="M60 96v44" stroke="#D9D9D9" stroke-width="2"/><circle cx="52" cy="108" r="2.5" fill="#D9D9D9"/><circle cx="52" cy="122" r="2.5" fill="#D9D9D9"/><path d="M48 96l12 10 12-10" fill="none" stroke="#D9D9D9" stroke-width="3"/>')],
+['medal','extra','금메달',5,'<path d="M50 90l10 14 10-14" fill="none" stroke="#E5484D" stroke-width="4"/><circle cx="60" cy="110" r="8" fill="#FFC93C" stroke="#E0A100" stroke-width="2"/>'],
+['bell','extra','방울 목걸이',3,'<path d="M46 92q14 12 28 0" fill="none" stroke="#E5484D" stroke-width="3"/><circle cx="60" cy="104" r="5" fill="#FFC93C" stroke="#E0A100" stroke-width="1.5"/>'],
+['flowerg','extra','꽃목걸이',4,'<circle cx="46" cy="94" r="4" fill="#FF9DB4"/><circle cx="53" cy="100" r="4" fill="#FFE08A"/><circle cx="60" cy="102" r="4" fill="#FF9DB4"/><circle cx="67" cy="100" r="4" fill="#FFE08A"/><circle cx="74" cy="94" r="4" fill="#FF9DB4"/>'],
+['sea','bg','바다',4,'<rect width="120" height="140" rx="20" fill="#8FD3F4"/><path d="M0 100q15-8 30 0t30 0 30 0 30 0v40H0z" fill="#3FA7E0"/>'],
+['snow','bg','눈 오는 날',4,'<rect width="120" height="140" rx="20" fill="#DDE9F7"/><g fill="#fff"><circle cx="20" cy="24" r="3"/><circle cx="52" cy="14" r="2.5"/><circle cx="92" cy="30" r="3"/><circle cx="104" cy="70" r="2.5"/><circle cx="14" cy="80" r="2.5"/></g>'],
+['flowers','bg','꽃밭',4,'<rect width="120" height="140" rx="20" fill="#C8EFC1"/><circle cx="20" cy="108" r="6" fill="#FF9DB4"/><circle cx="100" cy="100" r="6" fill="#FFE08A"/><circle cx="14" cy="64" r="5" fill="#FFE08A"/><circle cx="106" cy="50" r="5" fill="#FF9DB4"/>'],
+['city','bg','도시의 밤',5,'<rect width="120" height="140" rx="20" fill="#27305B"/><g fill="#3E4A86"><rect x="6" y="70" width="24" height="70"/><rect x="34" y="50" width="22" height="90"/><rect x="88" y="60" width="26" height="80"/></g><g fill="#FFE08A"><rect x="12" y="80" width="5" height="6"/><rect x="40" y="62" width="5" height="6"/><rect x="96" y="74" width="5" height="6"/></g>'],
+['w_sky','rwall','하늘색 벽',3,'<rect width="360" height="170" fill="#CFE8FF"/>'],
+['w_mint','rwall','민트색 벽',3,'<rect width="360" height="170" fill="#CDEFE0"/>'],
+['w_pink','rwall','분홍색 벽',3,'<rect width="360" height="170" fill="#FFD6E4"/>'],
+['w_stripe','rwall','줄무늬 벽',4,(function(){var s='<rect width="360" height="170" fill="#FFF3C4"/>';for(var i=0;i<12;i+=2)s+='<rect x="'+i*30+'" width="30" height="170" fill="#FFE08A"/>';return s})()],
+['w_star','rwall','별빛 벽',5,'<rect width="360" height="170" fill="#2B2F5E"/><g fill="#FFE08A"><circle cx="30" cy="20" r="3"/><circle cx="150" cy="50" r="2.5"/><circle cx="250" cy="22" r="3"/><circle cx="330" cy="70" r="2.5"/><circle cx="70" cy="130" r="2.5"/><circle cx="300" cy="140" r="3"/></g>'],
+['f_gray','rfloor','회색 마루',3,'<rect y="165" width="360" height="90" fill="#C9CCD6"/>'],
+['f_grass','rfloor','잔디 바닥',4,'<rect y="165" width="360" height="90" fill="#9AD6A0"/>'],
+['f_blue','rfloor','파란 바닥',4,'<rect y="165" width="360" height="90" fill="#8FB8F0"/>'],
+['b_blue','rbed','파란 침대',6,'<rect x="18" y="128" width="130" height="66" rx="10" fill="#6C9BEF"/><rect x="18" y="116" width="42" height="40" rx="12" fill="#fff"/><rect x="44" y="142" width="104" height="52" rx="10" fill="#A9C6F7"/><rect x="14" y="190" width="8" height="14" fill="#8A5A2B"/><rect x="144" y="190" width="8" height="14" fill="#8A5A2B"/>'],
+['b_pink','rbed','분홍 침대',6,'<rect x="18" y="128" width="130" height="66" rx="10" fill="#F27AA8"/><rect x="18" y="116" width="42" height="40" rx="12" fill="#fff"/><rect x="44" y="142" width="104" height="52" rx="10" fill="#FFB3CE"/><rect x="14" y="190" width="8" height="14" fill="#8A5A2B"/><rect x="144" y="190" width="8" height="14" fill="#8A5A2B"/>'],
+['b_star','rbed','별 이불 침대',8,'<rect x="18" y="128" width="130" height="66" rx="10" fill="#5B3FD0"/><rect x="18" y="116" width="42" height="40" rx="12" fill="#fff"/><rect x="44" y="142" width="104" height="52" rx="10" fill="#8B6CF0"/><path d="M96 158l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" fill="#FFE08A"/><rect x="14" y="190" width="8" height="14" fill="#8A5A2B"/><rect x="144" y="190" width="8" height="14" fill="#8A5A2B"/>'],
+['d_desk','rdesk','책상',5,'<rect x="224" y="130" width="116" height="10" rx="3" fill="#B07A45"/><rect x="232" y="140" width="8" height="54" fill="#8A5A2B"/><rect x="324" y="140" width="8" height="54" fill="#8A5A2B"/><rect x="250" y="108" width="34" height="22" rx="3" fill="#2F7BF6"/><rect x="292" y="114" width="14" height="16" rx="2" fill="#FFE08A"/>'],
+['d_shelf','rdesk','책장',5,(function(){var s='<rect x="226" y="60" width="104" height="134" rx="6" fill="#B07A45"/>',c=['#E5484D','#2F7BF6','#14A36B','#FFC93C','#8B6CF0'];for(var r=0;r<3;r++){s+='<rect x="232" y="'+(100+r*30)+'" width="92" height="4" fill="#8A5A2B"/>';for(var i=0;i<6;i++)s+='<rect x="'+(236+i*14)+'" y="'+(74+r*30)+'" width="10" height="26" fill="'+c[(i+r)%5]+'"/>'}return s})()],
+['d_sofa','rdesk','소파',6,'<rect x="214" y="136" width="124" height="46" rx="14" fill="#F25F9B"/><rect x="206" y="148" width="24" height="42" rx="10" fill="#E5488A"/><rect x="322" y="148" width="24" height="42" rx="10" fill="#E5488A"/><rect x="226" y="118" width="100" height="32" rx="12" fill="#F77FB0"/>'],
+['c_clock','rdeco','벽시계',3,'<circle cx="184" cy="56" r="22" fill="#fff" stroke="#8A5A2B" stroke-width="5"/><path d="M184 56V42M184 56l10 6" stroke="#23324A" stroke-width="3" stroke-linecap="round"/>'],
+['c_frame','rdeco','액자',3,'<rect x="156" y="32" width="56" height="44" rx="4" fill="#B07A45"/><rect x="162" y="38" width="44" height="32" fill="#BFE3FF"/><circle cx="196" cy="48" r="5" fill="#FFE08A"/><path d="M162 70l14-14 12 10 8-6 12 10z" fill="#7BC98A"/>'],
+['c_poster','rdeco','별 포스터',4,'<rect x="160" y="26" width="48" height="62" rx="4" fill="#2B2F5E"/><path d="M184 38l4 9 10 1-7.5 6.5 2.5 10-9-5.5-9 5.5 2.5-10-7.5-6.5 10-1z" fill="#FFE08A"/>'],
+['c_lamp','rdeco','별 조명',4,'<path d="M184 14v22" stroke="#8A5A2B" stroke-width="3"/><path d="M184 36l6 12 13 2-9.5 9 2.5 13-12-6.5-12 6.5 2.5-13-9.5-9 13-2z" fill="#FFE08A" stroke="#E0A100" stroke-width="2"/>'],
+['p_plant','rpet','화분',3,'<path d="M306 190h30l-4 30h-22z" fill="#C97A4A"/><path d="M321 190c-14-10-16-28-4-34 2 12 4 20 4 34zM321 190c14-10 16-28 4-34-2 12-4 20-4 34z" fill="#3FB27F"/>'],
+['p_bear','rpet','곰인형',4,'<circle cx="322" cy="196" r="14" fill="#B07A45"/><circle cx="312" cy="184" r="5" fill="#B07A45"/><circle cx="332" cy="184" r="5" fill="#B07A45"/><circle cx="322" cy="214" r="12" fill="#B07A45"/><circle cx="318" cy="195" r="1.8" fill="#23324A"/><circle cx="326" cy="195" r="1.8" fill="#23324A"/><circle cx="322" cy="200" r="3" fill="#F6D1A8"/>'],
+['p_fish','rpet','어항',5,'<rect x="296" y="180" width="48" height="38" rx="8" fill="rgba(160,215,245,.7)" stroke="#6BB6E0" stroke-width="3"/><ellipse cx="318" cy="198" rx="9" ry="5" fill="#F2711C"/><path d="M327 198l7-5v10z" fill="#F2711C"/>'],
+['p_cat','rpet','고양이',8,'<ellipse cx="322" cy="214" rx="18" ry="14" fill="#F2B866"/><circle cx="322" cy="190" r="13" fill="#F2B866"/><path d="M311 182l2-12 8 6zM333 182l-2-12-8 6z" fill="#F2B866"/><circle cx="317" cy="190" r="1.8" fill="#23324A"/><circle cx="327" cy="190" r="1.8" fill="#23324A"/><path d="M319 195q3 3 6 0" stroke="#23324A" fill="none" stroke-width="1.5"'],
+['dragonhelm','hat','용의 뿔 투구',12,'<path d="M35 39l-5-24 18 13 12-20 12 20 18-13-5 24z" fill="#43506B" stroke="#1F2A44" stroke-width="3"/><path d="M45 35h30" stroke="#F2B400" stroke-width="4"/>'],['dragonarmor','outfit','용기사 갑옷',14,body('#3D597D','<path d="M42 101l18 12 18-12" fill="none" stroke="#C7D7EA" stroke-width="4"/><path d="M60 112v27" stroke="#F2B400" stroke-width="3"/>')],['dragonbg','bg','용의 동굴',10,'<rect width="120" height="140" rx="20" fill="#202A44"/><path d="M0 110l25-42 18 25 25-52 20 48 32-34v85H0z" fill="#45577D"/><circle cx="86" cy="34" r="8" fill="#F2B400"/>'],['bigplant','rdeco','큰 초록 화분',7,'<path d="M278 190h42l-6 32h-30z" fill="#C97A4A"/><path d="M299 190c-24-15-20-42-4-48 2 15 4 28 4 48zM300 190c25-15 22-42 5-48-2 15-5 28-5 48z" fill="#2F9B6A"/>'],['cactus','rdeco','선인장 화분',6,'<path d="M278 192h42l-5 29h-32z" fill="#E7B86A"/><path d="M299 194v-42q0-9 8-9t8 9v10M299 170h-10q-8 0-8-8v-8" fill="none" stroke="#3FB27F" stroke-width="9" stroke-linecap="round"/>'],['dragonstatue','rdeco','작은 용 조각상',15,'<path d="M286 206q14-42 28 0z" fill="#5B3FD0"/><path d="M300 198l-12-22 14 8 14-8-12 22z" fill="#8B6CF0"/><circle cx="296" cy="181" r="2" fill="#FFC93C"/><circle cx="304" cy="181" r="2" fill="#FFC93C"/>']];
+var DEF={bg:'<rect width="120" height="140" rx="20" fill="#FFF1C9"/>',outfit:body('#7DB7F5','<path d="M48 96q12 10 24 0" stroke="#5B9BE0" stroke-width="3" fill="none"/>')};
+var SLOTS=[['hat','모자'],['glasses','안경'],['outfit','옷'],['extra','소품'],['bg','배경']],shopSlot='hat',shopMode='av',RSLOTS=[['rwall','벽'],['rfloor','바닥'],['rbed','침대'],['rdesk','가구'],['rdeco','벽 장식']],resetArm=false;
+function frag(slot,eq){var id=eq[slot];if(id){var it=ITEMS.filter(function(x){return x[0]===id&&x[1]===slot})[0];if(it)return it[4]}return slot==='outfit'?body(P.top,'<path d="M48 96q12 10 24 0" stroke="rgba(0,0,0,.2)" stroke-width="3" fill="none"/>'):(DEF[slot]||'')}
+function avParts(eq){return '<rect x="53" y="74" width="14" height="22" fill="#E8B88A"/>'+frag('outfit',eq)+frag('extra',eq)+'<circle cx="34" cy="58" r="5" fill="'+SKIN+'"/><circle cx="86" cy="58" r="5" fill="'+SKIN+'"/><circle cx="60" cy="56" r="26" fill="'+SKIN+'"/>'+HAIR.replace('#4A3220',P.hair)+FACE+frag('glasses',eq)+frag('hat',eq)}
+function avatar(eq,s){eq=eq||P.eq;return '<svg class="avs" width="'+s+'" height="'+Math.round(s*140/120)+'" viewBox="0 0 120 140" aria-hidden="true">'+frag('bg',eq)+avParts(eq)+'</svg>'}
+var LEGS='<rect x="46" y="136" width="12" height="38" rx="4" fill="#3A4A7A"/><rect x="62" y="136" width="12" height="38" rx="4" fill="#3A4A7A"/><ellipse cx="50" cy="176" rx="11" ry="5" fill="#23324A"/><ellipse cx="70" cy="176" rx="11" ry="5" fill="#23324A"/>';
+function xmlText(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;')}
+function petArt(id){
+  var face='<circle cx="48" cy="52" r="3" fill="#23324A"/><circle cx="72" cy="52" r="3" fill="#23324A"/><path d="M57 64q3 3 6 0" fill="none" stroke="#23324A" stroke-width="2.5" stroke-linecap="round"/>';
+  if(id==='pet_dog')return '<path d="M25 42q-18 8-8 25" fill="none" stroke="#8A5A2B" stroke-width="8" stroke-linecap="round"/><rect x="29" y="53" width="62" height="35" rx="17" fill="#C98A52"/><circle cx="60" cy="45" r="27" fill="#D9A66B"/><path d="M38 30q-20 2-14 25 4 10 15 0zM82 30q20 2 14 25-4 10-15 0z" fill="#8A5A2B"/><circle cx="60" cy="60" r="5" fill="#23324A"/>'+face;
+  if(id==='pet_rabbit')return '<ellipse cx="60" cy="76" rx="28" ry="20" fill="#F5D4E0"/><ellipse cx="47" cy="20" rx="10" ry="28" fill="#F5D4E0"/><ellipse cx="73" cy="20" rx="10" ry="28" fill="#F5D4E0"/><ellipse cx="47" cy="20" rx="4" ry="19" fill="#FFB3C7"/><ellipse cx="73" cy="20" rx="4" ry="19" fill="#FFB3C7"/><circle cx="60" cy="52" r="25" fill="#FFF0F5"/>'+face;
+  if(id==='pet_hamster')return '<ellipse cx="60" cy="68" rx="36" ry="27" fill="#D9A66B"/><circle cx="60" cy="48" r="27" fill="#E8B88A"/><circle cx="39" cy="40" r="10" fill="#E8B88A"/><circle cx="81" cy="40" r="10" fill="#E8B88A"/><circle cx="42" cy="64" r="9" fill="#FFB3B8"/><circle cx="78" cy="64" r="9" fill="#FFB3B8"/>'+face;
+  if(id==='pet_fox')return '<ellipse cx="60" cy="73" rx="31" ry="22" fill="#F2711C"/><path d="M32 45L28 13l25 18M88 45l4-32-25 18" fill="#F2711C"/><path d="M39 31l-5-11 14 8M81 31l5-11-14 8" fill="#FFE0B2"/><circle cx="60" cy="51" r="25" fill="#F2711C"/><path d="M47 62q13 11 26 0-13 25-26 0z" fill="#fff"/><circle cx="49" cy="51" r="3" fill="#23324A"/><circle cx="71" cy="51" r="3" fill="#23324A"/>';
+  if(id==='pet_penguin')return '<ellipse cx="60" cy="66" rx="30" ry="34" fill="#35445F"/><circle cx="60" cy="48" r="25" fill="#35445F"/><ellipse cx="60" cy="68" rx="19" ry="25" fill="#fff"/><path d="M53 54l7 6 7-6-7 15z" fill="#F2B400"/><circle cx="50" cy="45" r="3" fill="#fff"/><circle cx="70" cy="45" r="3" fill="#fff"/>';
+  if(id==='pet_turtle')return '<ellipse cx="60" cy="62" rx="37" ry="25" fill="#4F9E5E"/><path d="M32 62q28-36 56 0-28 36-56 0z" fill="#6FBF73" stroke="#397B48" stroke-width="3"/><path d="M60 39v46M38 62h44" stroke="#397B48" stroke-width="3"/><circle cx="99" cy="62" r="12" fill="#8ED08D"/><circle cx="102" cy="59" r="2" fill="#23324A"/>';
+  if(id==='pet_panda')return '<ellipse cx="60" cy="72" rx="31" ry="23" fill="#fff"/><circle cx="60" cy="49" r="27" fill="#fff"/><circle cx="39" cy="30" r="10" fill="#23324A"/><circle cx="81" cy="30" r="10" fill="#23324A"/><ellipse cx="47" cy="49" rx="8" ry="11" fill="#23324A" transform="rotate(30 47 49)"/><ellipse cx="73" cy="49" rx="8" ry="11" fill="#23324A" transform="rotate(-30 73 49)"/><circle cx="47" cy="49" r="3" fill="#fff"/><circle cx="73" cy="49" r="3" fill="#fff"/><circle cx="60" cy="59" r="4" fill="#23324A"/>';
+  if(id==='pet_unicorn')return '<ellipse cx="60" cy="78" rx="34" ry="19" fill="#D98BEA" stroke="#8B4DB2" stroke-width="2"/><path d="M34 72Q12 52 25 38Q38 48 43 65M86 72Q108 52 95 38Q82 48 77 65" fill="#FFF4FF" stroke="#C78BEA" stroke-width="3"/><circle cx="60" cy="48" r="28" fill="#FFF1FB" stroke="#C77AD9" stroke-width="2"/><path d="M60 21L68 0 78 25Z" fill="#FFE08A" stroke="#C58D22" stroke-width="2"/><path d="M38 34Q60 8 82 34" fill="none" stroke="#F05A9D" stroke-width="7"/><path d="M40 29Q60 12 80 29" fill="none" stroke="#6FD4E8" stroke-width="5"/><path d="M45 77q15 10 30 0" fill="none" stroke="#FFD15C" stroke-width="5"/><circle cx="50" cy="49" r="3" fill="#23324A"/><circle cx="70" cy="49" r="3" fill="#23324A"/><path d="M55 61q5 5 10 0" fill="none" stroke="#23324A" stroke-width="2.5"/> ';
+  if(id==='pet_dragon')return '<ellipse cx="60" cy="78" rx="35" ry="21" fill="#244C67" stroke="#152B45" stroke-width="3"/><path d="M39 63Q8 43 18 20q22 9 34 32M81 63q31-20 21-43-22 9-34 32" fill="#3A7890" stroke="#152B45" stroke-width="3"/><circle cx="60" cy="48" r="28" fill="#2F6F78" stroke="#152B45" stroke-width="3"/><path d="M41 31L32 8 52 22M79 31l9-23-20 14" fill="#E85B46" stroke="#7D2E35" stroke-width="2"/><path d="M50 25L60 7l10 18" fill="#F2B400" stroke="#8A5A16" stroke-width="2"/><circle cx="50" cy="49" r="4" fill="#FFC83D"/><circle cx="70" cy="49" r="4" fill="#FFC83D"/><circle cx="50" cy="49" r="1.5" fill="#23324A"/><circle cx="70" cy="49" r="1.5" fill="#23324A"/><path d="M47 63q13 9 26 0" fill="none" stroke="#152B45" stroke-width="3"/><path d="M60 66q7 12 0 18-7-6 0-18z" fill="#F2711C" stroke="#FFC83D" stroke-width="2"/> ';
+  return '<ellipse cx="60" cy="73" rx="31" ry="22" fill="#F2B866"/><circle cx="60" cy="48" r="26" fill="#F2B866"/><path d="M38 36l-3-22 18 12M82 36l3-22-18 12" fill="#F2B866"/>'+face;
+}
+function petIconSvg(id,w){return '<svg width="'+w+'" height="'+Math.round(w*.83)+'" viewBox="0 0 120 100" aria-hidden="true">'+petArt(id)+'</svg>'}
+function petRoomSvg(){
+  var pet=P.pets.filter(function(x){return x.id===P.activePet})[0];if(!pet)return '';
+  return '<g transform="translate(238 138) scale(.55)">'+petArt(pet.id)+'</g><rect x="226" y="206" width="84" height="20" rx="10" fill="#fff" stroke="#EFE2C2" stroke-width="2"/><text x="268" y="220" text-anchor="middle" font-size="11" font-family="Noto Sans KR, sans-serif" fill="#23324A">'+xmlText(pet.name||'이름을 지어 주세요')+'</text>';
+}
+function roomSvg(eq,w){
+  var f=function(s,d){var id=eq[s];if(id){var it=ITEMS.filter(function(x){return x[0]===id})[0];if(it)return it[4]}return d||''};
+  return '<svg class="avs" width="'+w+'" height="'+Math.round(w*250/360)+'" viewBox="0 0 360 250" aria-hidden="true">'+f('rwall','<rect width="360" height="170" fill="#FDE9C9"/>')+f('rfloor','<rect y="165" width="360" height="90" fill="#D9A66B"/>')+'<path d="M0 196h360M0 226h360" stroke="rgba(0,0,0,.07)" stroke-width="2"/><rect y="162" width="360" height="6" fill="rgba(0,0,0,.08)"/><rect x="34" y="26" width="80" height="70" rx="6" fill="#BFE3FF" stroke="#fff" stroke-width="6"/><path d="M74 26v70M34 61h80" stroke="#fff" stroke-width="4"/>'+f('rdeco')+f('rbed')+f('rdesk')+'<g transform="translate(140,92) scale(.62)">'+LEGS+avParts(eq)+'</g>'+petRoomSvg()+'</svg>';
+}
+/* 상황 연출: 배경 + 캐릭터 + 말풍선 */
+function stripes(n,w,h,a,b){var s='';for(var i=0;i<n;i++)s+='<rect x="'+i*w+'" width="'+w+'" height="'+h+'" fill="'+(i%2?b:a)+'"/>';return s}
+function shelf(y){var c=['#F2711C','#2F7BF6','#14A36B','#E5488A','#FFC93C'],s='<rect y="'+(y+30)+'" width="360" height="6" fill="#B9C6D6"/>';for(var i=0;i<9;i++){var h=20+(i*7+y)%3*6;s+='<rect x="'+(i*40+8)+'" y="'+(y+30-h)+'" width="26" height="'+h+'" rx="3" fill="'+c[(i+(y/55|0))%5]+'"/>'}return s}
+var TH={
+counter:{bg:'<rect width="360" height="260" fill="#FFE9C4"/>'+stripes(9,40,36,'#F2711C','#FFF6E6')+'<rect x="150" y="62" width="76" height="50" rx="6" fill="#3A4A3A"/><path d="M160 78h40M160 90h56M160 102h30" stroke="#EDE6D3" stroke-width="3" stroke-linecap="round"/><rect y="196" width="360" height="64" fill="#D9A66B"/>',fg:'<rect x="150" y="212" width="220" height="60" fill="#A8693A"/><rect x="144" y="204" width="232" height="12" rx="6" fill="#C98A52"/><rect x="190" y="180" width="16" height="24" rx="3" fill="#fff"/><rect x="190" y="186" width="16" height="4" fill="#F2711C"/>'},
+shelves:{bg:'<rect width="360" height="260" fill="#EAF4FF"/>'+shelf(55)+shelf(110)+shelf(165)+'<rect y="214" width="360" height="46" fill="#CFD8E3"/>',fg:''},
+clinic:{bg:'<rect width="360" height="260" fill="#EAF7F4"/><rect x="150" y="30" width="60" height="60" rx="10" fill="#fff"/><path d="M180 40v40M160 60h40" stroke="#14A36B" stroke-width="12" stroke-linecap="round"/><rect x="30" y="50" width="80" height="60" rx="6" fill="#CFE8FF" stroke="#fff" stroke-width="5"/><rect y="200" width="360" height="60" fill="#CFE3E0"/>',fg:'<rect x="150" y="212" width="220" height="60" fill="#fff" stroke="#CFE3E0" stroke-width="3"/><rect x="144" y="204" width="232" height="12" rx="6" fill="#9ED8C6"/>'},
+street:{bg:'<rect width="360" height="260" fill="#BFE3FF"/><circle cx="318" cy="36" r="18" fill="#FFE08A"/><rect y="188" width="360" height="72" fill="#7A8190"/><rect y="176" width="360" height="16" fill="#D8D2C4"/><path d="M0 226h360" stroke="#fff" stroke-width="4" stroke-dasharray="26 18"/><rect x="196" y="88" width="160" height="88" rx="14" fill="#F2B400"/><g fill="#BFE3FF"><rect x="208" y="100" width="34" height="30" rx="4"/><rect x="250" y="100" width="34" height="30" rx="4"/><rect x="292" y="100" width="34" height="30" rx="4"/></g><circle cx="232" cy="176" r="12" fill="#3A3F4B"/><circle cx="320" cy="176" r="12" fill="#3A3F4B"/><rect x="144" y="76" width="6" height="104" fill="#6B7280"/><rect x="126" y="60" width="42" height="26" rx="6" fill="#2F7BF6"/>',fg:''},
+station:{bg:'<rect width="360" height="260" fill="#E9EDF5"/><rect y="60" width="360" height="96" fill="#5B8DEF"/><g fill="#DCE9FF"><rect x="14" y="74" width="60" height="44" rx="4"/><rect x="94" y="74" width="60" height="44" rx="4"/><rect x="174" y="74" width="60" height="44" rx="4"/><rect x="254" y="74" width="60" height="44" rx="4"/></g><rect y="156" width="360" height="6" fill="#3A4A7A"/><rect y="196" width="360" height="64" fill="#C7CDD9"/><rect y="204" width="360" height="8" fill="#FFC93C"/>',fg:''},
+park:{bg:'<rect width="360" height="260" fill="#CFEBFF"/><circle cx="40" cy="40" r="20" fill="#FFE08A"/><rect y="170" width="360" height="90" fill="#9AD6A0"/><rect x="154" y="120" width="10" height="60" fill="#8A5A2B"/><circle cx="159" cy="104" r="34" fill="#4FB06A"/><circle cx="136" cy="124" r="22" fill="#5CC178"/><circle cx="184" cy="124" r="22" fill="#5CC178"/>',fg:'<circle cx="20" cy="236" r="5" fill="#FF9DB4"/><circle cx="330" cy="240" r="5" fill="#FFE08A"/><circle cx="60" cy="248" r="4" fill="#fff"/>'}};
+var RANDOM_THEMES={surprise_buscard:'street',surprise_wrongorder:'counter',surprise_lostchild:'park',surprise_phone:'station',surprise_queue:'counter',surprise_rain:'street',surprise_friendsecret:'park',surprise_shopchange:'counter',surprise_library:'shelves',surprise_gameinvite:'park'};
+function themeOf(id){if(RANDOM_THEMES[id])return RANDOM_THEMES[id];if(id==='clinic')return'clinic';if(id==='lost')return'station';if(/^go|^bus$|^way$/.test(id))return'street';if(/^friend|^hello$|^play$|^no$/.test(id))return'park';if(/^help/.test(id))return'shelves';return'counter'}
+function capS(c){return '<path d="M33 40c0-14 12-22 27-22s27 8 27 22z" fill="'+c+'"/><path d="M34 38h-14c-4 0-4 8 0 8h14z" fill="'+c+'"/>'}
+var COLLAR='<path d="M48 96l12 10 12-10" fill="none" stroke="#fff" stroke-width="3"/>';
+var NPC={clerk:{skin:'#F3D2B3',hair:'#3A2A1E',body:'#F2711C',d:'<path d="M42 104h36v36H42z" fill="#fff"/>',hat:capS('#F2711C')},nurse:{skin:'#F3D2B3',hair:'#6B3A1E',body:'#9ED8C6',d:COLLAR,hat:''},guide:{skin:'#E9B58A',hair:'#2A2A2A',body:'#2B3A67',d:'',hat:capS('#2B3A67')},staff:{skin:'#F3D2B3',hair:'#2A2A2A',body:'#14A36B',d:'',hat:capS('#14A36B')},adult:{skin:'#E9B58A',hair:'#8A8A8A',body:'#8A8F9C',d:'',hat:''},kid:{skin:'#F6C9A0',hair:'#6B3A1E',body:'#F25F9B',d:COLLAR,hat:''}};
+function person(o){return '<rect x="53" y="74" width="14" height="22" fill="#E8B88A"/><path d="'+BODY+'" fill="'+o.body+'"/>'+o.d+'<circle cx="34" cy="58" r="5" fill="'+o.skin+'"/><circle cx="86" cy="58" r="5" fill="'+o.skin+'"/><circle cx="60" cy="56" r="26" fill="'+o.skin+'"/>'+HAIR.replace('#4A3220',o.hair)+FACE+o.hat}
+function kindOf(who,th){if(who==='역무원')return'staff';if(who==='기사님'||who==='안내하는 사람')return'guide';if(who==='어른')return'adult';if(who==='친구'||who==='민지')return'kid';if(who==='직원')return th==='clinic'?'nurse':'clerk';return{counter:'clerk',shelves:'clerk',clinic:'nurse',street:'guide',station:'staff',park:'kid'}[th]}
+function drawStage(st){
+  var th=themeOf(sid),T=TH[th],k=kindOf(st.who,th),kid=k==='kid',think=st.who==='나의 생각';
+  var s='<svg class="stg" viewBox="0 0 360 260" aria-hidden="true">'+T.bg+'<g transform="translate('+(kid?214:206)+','+(kid?146:130)+') scale('+(kid?.7:.8)+')">'+person(NPC[k])+'</g><g transform="translate(22,130) scale(.8)">'+avParts(P.eq)+'</g>'+T.fg+'</svg>';
+  var el=$('stage');el.innerHTML=s;
+  var b=document.createElement('div');b.className='sbub '+(think?'think l':'r');b.innerHTML='<div class="who" id="who"></div><p class="say" id="say"></p>';el.appendChild(b);
+  $('who').textContent=st.who;$('say').textContent=st.say;
+}
+var SCREENS=['home','cat','play','done','rec','shop','prof','ob'],TABOF={home:'home',cat:'home',done:'home',rec:'rec',shop:'shop',prof:'prof'};
+function show(id){SCREENS.forEach(function(s){$(s).classList.toggle('hide',s!==id)});var t=TABOF[id];$('pill').classList.toggle('hide',id==='ob');$('tabs').classList.toggle('hide',!t);document.body.classList.toggle('hastabs',!!t);[].forEach.call(document.querySelectorAll('#tabs button'),function(b){if(b.getAttribute('data-t')===t)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});window.scrollTo(0,0)}
+function go(t){if(t==='home')show('home');else if(t==='rec'){renderRec();show('rec')}else if(t==='shop'){renderShop();show('shop')}else{renderProf();show('prof')}}
+function levelForStars(){return Math.max(1,Math.floor(P.earned/3)+1)}
+function refreshAll(){
+  var lv=levelForStars();$('pillAv').innerHTML=avatar(P.eq,34);$('pillN').textContent=bal();$('levelN').textContent=lv;
+  if($('randomGame')){$('randomGame').disabled=lv<10;$('randomGame').textContent=lv<10?'레벨 '+(10-lv)+' 더 올리면 열려요':'게임 시작';$('randomNote').textContent=lv<10?'일반 학습으로 별을 모아 레벨 10까지 올려 보세요.':'서로 다른 돌발 상황 5개가 차례로 나와요!'}
+  $('hi').textContent='안녕'+(P.nick?', '+P.nick:'')+'! 나는 마음이야.';
+  document.body.classList.toggle('calm',!!P.set.calm);
+  if(!$('home').classList.contains('hide'))renderCats();
+}
+function renderRec(){
+  var p=loadP(),done=0,tot=0,bars='',low=null;
+  CATS.forEach(function(c){var d=c.list.filter(function(i){return p[i]}).length,pc=Math.round(d/c.list.length*100);done+=d;tot+=c.list.length;
+    bars+='<div class="bar1" style="--c:'+c.c+'"><div class="bl"><b>'+c.name+'</b><span>'+d+' / '+c.list.length+'</span></div><div class="bt"><i style="width:'+pc+'%"></i></div></div>';
+    if(!low||pc<low.pc)low={c:c,pc:pc}});
+  $('recStars').textContent=P.earned;$('recDone').textContent=done+' / '+tot;$('recPlays').textContent=P.plays;$('recBars').innerHTML=bars;
+  var t=$('recTip');t.innerHTML='';
+  if(low){var b=document.createElement('button');b.type='button';b.className='btn';b.textContent='다음엔 “'+low.c.name+'” 연습해 볼까요?';b.onclick=function(){if(ready())openCat(low.c);else{show('home');var m=$('lockmsg');m.textContent='먼저 ①에서 연습 방법을 골라 주세요.'}};t.appendChild(b)}
+}
+function msg(t){var m=$('shopMsg');m.textContent=t;m.classList.remove('shake');void m.offsetWidth;m.classList.add('shake')}
+function renderPetShop(){
+  var box=$('petShop');box.classList.remove('hide');box.innerHTML='<h2 style="margin-top:8px">반려동물을 골라요</h2><p class="sub" style="margin-bottom:12px">별로 반려동물을 사고, 나만의 이름을 지어 주세요.</p><div class="petitems" id="petItems"></div>';
+  var g=$('petItems');
+  PETS.forEach(function(pet){
+    var owned=P.pets.filter(function(x){return x.id===pet.id})[0],active=owned&&P.activePet===pet.id;
+    var d=document.createElement('div');d.className='petcard'+(active?' itm on':'');
+    d.innerHTML=petIconSvg(pet.id,112)+'<b>'+pet.name+'</b><span class="sub">★ '+pet.price+'개</span>';
+    if(!owned){
+      var buy=document.createElement('button');buy.type='button';buy.className='btn';buy.textContent='★ '+pet.price+'개로 입양하기';buy.onclick=function(){if(bal()<pet.price){msg('별이 '+(pet.price-bal())+'개 모자라요. 연습하고 별을 모아 보세요!');return}P.spent+=pet.price;P.pets.push({id:pet.id,name:''});P.activePet=pet.id;saveProfile();renderShop();msg(pet.name+'을(를) 입양했어요! 아래에서 이름을 지어 주세요.');confetti()};d.appendChild(buy);
+    }else{
+      var inp=document.createElement('input');inp.maxLength=8;inp.value=owned.name||'';inp.placeholder='반려동물 이름';inp.setAttribute('aria-label',pet.name+' 이름');
+      var note=document.createElement('p');note.className='lockmsg';note.setAttribute('aria-live','polite');
+      var save=function(){var v=validName(inp.value);if(!v.ok){nameError(note,v.msg);inp.focus();return}owned.name=v.name;saveProfile();note.textContent='이름을 저장했어요.';renderPetShop()};
+      inp.onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();save()}};inp.onblur=save;d.appendChild(inp);d.appendChild(note);
+      var use=document.createElement('button');use.type='button';use.className='btn'+(active?' alt':'');use.textContent=active?'현재 함께 있어요':'함께하기';use.onclick=function(){P.activePet=pet.id;saveProfile();renderPetShop()};d.appendChild(use);
+    }g.appendChild(d);
+  });
+}
+function renderShop(){
+  $('petShop').classList.add('hide');
+  $('items').classList.remove('hide');
+  var room=shopMode==='room',sl=room?RSLOTS:SLOTS;
+  if(sl.every(function(x){return x[0]!==shopSlot}))shopSlot=sl[0][0];
+  $('shopAv').innerHTML=room?roomSvg(P.eq,300):avatar(P.eq,150);$('shopBal').textContent=bal();
+  $('shopAv').parentNode.classList.toggle('rm',room);$('items').className='items'+(room?' rm':'');
+  var m=$('shopMode');m.innerHTML='';
+  [['av','아바타 꾸미기'],['room','내 방 꾸미기'],['pet','반려동물']].forEach(function(x){var b=document.createElement('button');b.type='button';b.className='chipb';b.textContent=x[1];b.setAttribute('aria-pressed',String(x[0]===shopMode));b.onclick=function(){shopMode=x[0];$('shopMsg').textContent='';renderShop()};m.appendChild(b)});
+  if(shopMode==='pet'){ $('slots').innerHTML=''; $('slots').classList.add('hide'); $('items').classList.add('hide'); renderPetShop(); return; }
+  $('slots').classList.remove('hide');
+  var s=$('slots');s.innerHTML='';
+  sl.forEach(function(x){var b=document.createElement('button');b.type='button';b.className='chipb';b.textContent=x[1];b.setAttribute('aria-pressed',String(x[0]===shopSlot));b.onclick=function(){shopSlot=x[0];$('shopMsg').textContent='';renderShop()};s.appendChild(b)});
+  var g=$('items');g.innerHTML='';
+  ITEMS.filter(function(i){return i[1]===shopSlot}).forEach(function(it){
+    var own=P.owned.indexOf(it[0])>=0,on=P.eq[it[1]]===it[0],tmp=Object.assign({},P.eq);tmp[it[1]]=it[0];
+    var d=document.createElement('div');d.className='itm'+(on?' on':'');
+    d.innerHTML=(room?roomSvg(tmp,150):avatar(tmp,84))+'<b>'+it[2]+'</b>';
+    var b=document.createElement('button');b.type='button';b.className='btn'+(own?' alt':'');
+    b.textContent=own?(on?'치우기':(room?'놓기':'입기')):'★ '+it[3]+' 사기';
+    b.onclick=function(){if(own){if(on)delete P.eq[it[1]];else P.eq[it[1]]=it[0];saveProfile();renderShop()}else if(bal()<it[3]){msg('별이 '+(it[3]-bal())+'개 모자라요. 연습하고 별을 모아 보세요!')}else{P.spent+=it[3];P.owned.push(it[0]);P.eq[it[1]]=it[0];saveProfile();renderShop();msg('멋져요! “'+it[2]+'”을(를) '+(room?'놓았어요.':'꾸몄어요.'));confetti()}};
+    d.appendChild(b);g.appendChild(d);
+  });
+}
+function renderProf(){
+  var up=function(){refreshAll();$('profAv').innerHTML=avatar(P.eq,140)};swatches($('pfHair'),HC,'hair',up);swatches($('pfTop'),TC,'top',up);
+  $('profAv').innerHTML=avatar(P.eq,140);$('nick').value=P.nick;
+  $('profStat').textContent='모은 별 '+P.earned+'개 · 쓴 별 '+P.spent+'개 · 가진 아이템 '+P.owned.length+'개';
+  [].forEach.call(document.querySelectorAll('[data-set]'),function(b){b.setAttribute('aria-pressed',String(!!P.set[b.getAttribute('data-set')]))});
+}
+function initProfile(){
+  $('obGo').onclick=function(){var v=validName($('obNick').value);if(!v.ok){nameError($('obMsg'),v.msg+' 어려우면 “추천 별명”을 눌러요!');$('obNick').focus();return}P.nick=v.name;P.ob=true;saveProfile();show('home')};
+  $('obRand').onclick=function(){$('obNick').value=NICKS[Math.floor(Math.random()*NICKS.length)]};
+  loadProfile();
+  [].forEach.call(document.querySelectorAll('#tabs button'),function(b){b.onclick=function(){go(b.getAttribute('data-t'))}});
+  $('pill').onclick=function(){go('shop')};$('toShop').onclick=function(){go('shop')};
+  $('nick').onchange=function(){var v=validName(this.value);if(!v.ok){this.value=P.nick;nameError($('profStat'),v.msg+' 별명은 저장되지 않았어요.');return}P.nick=v.name;saveProfile();$('nick').value=P.nick;$('hi').textContent='안녕'+(P.nick?', '+P.nick:'')+'! 나는 마음이야.'};
+  [].forEach.call(document.querySelectorAll('[data-set]'),function(b){b.onclick=function(){var k=b.getAttribute('data-set');P.set[k]=!P.set[k];saveProfile();renderProf()}});
+  $('reset').onclick=function(){var r=this;if(!resetArm){resetArm=true;r.textContent='정말 지울까요? 한 번 더 누르면 지워져요';setTimeout(function(){resetArm=false;r.textContent='기록과 별 모두 지우기'},4000);return}
+    resetArm=false;try{localStorage.removeItem(PK);localStorage.removeItem(KEY)}catch(e){}mem={};P={nick:'',hair:'#4A3220',top:'#7DB7F5',ob:false,earned:0,spent:0,owned:[],eq:{},pets:[],activePet:'',plays:0,set:{confetti:true,calm:false}};r.textContent='기록과 별 모두 지우기';refreshAll();renderOb();show('ob')};
+}
+
+var HC=[['#4A3220','갈색'],['#1F1A17','검정'],['#8A5A2B','밤색'],['#E8C26A','금발'],['#E2762B','주황'],['#F27AA8','분홍'],['#4F8CF0','파랑']],TC=[['#7DB7F5','하늘색'],['#3FB27F','초록색'],['#FFC93C','노란색'],['#F25F9B','분홍색'],['#8B6CF0','보라색'],['#F2711C','주황색'],['#F2F2F2','흰색']],NICKS=['하늘이','별이','구름이','햇살이','달이','바다','보리','콩이','도토리','무지개'];
+function swatches(el,list,key,cb){el.innerHTML='';list.forEach(function(x){var b=document.createElement('button');b.type='button';b.style.background=x[0];b.setAttribute('aria-label',x[1]);b.setAttribute('aria-pressed',String(P[key]===x[0]));b.onclick=function(){P[key]=x[0];try{localStorage.setItem(PK,JSON.stringify(P))}catch(e){}swatches(el,list,key,cb);cb()};el.appendChild(b)})}
+function renderOb(){
+  $('obMas').innerHTML=mas('cheer',76);$('obMsg').textContent='';
+  var upd=function(){$('obAv').innerHTML=avatar({},150)};
+  swatches($('obHair'),HC,'hair',upd);swatches($('obTop'),TC,'top',upd);upd();$('obNick').value=P.nick;
+}
+
+/* 연결 */
+$('logo').innerHTML=mas('happy',38)+'<span>마음잇기</span>';
+$('helloMas').innerHTML=mas('happy',76);
+$('miVoice').innerHTML=ico('mic',26);$('miChoice').innerHTML=ico('list',26);
+[].forEach.call(document.querySelectorAll('.mode'),function(b){b.onclick=function(){setMode(b.getAttribute('data-m'))}});
+$('askMic').onclick=askMic;
+$('toChoice').onclick=function(){setMode('choice')};
+$('randomGame').onclick=randomGame;
+$('catBack').onclick=function(){show('home')};
+$('playBack').onclick=function(){try{speechSynthesis.cancel()}catch(e){}openCat(cat)};
+$('retry').onclick=retry;
+$('mic').onclick=listenMic;
+$('hintBtn').onclick=function(){var h=$('hint');h.classList.toggle('hide');this.textContent=h.classList.contains('hide')?'힌트 보기':'힌트 닫기'};
+$('swap').onclick=function(){setMode('choice');step()};
+$('next').onclick=function(){try{speechSynthesis.cancel()}catch(e){}if(randomGameMode){finish();return}idx++;if(idx>=SC[sid].steps.length)finish();else step()};
+$('listen').onclick=function(){try{var u=new SpeechSynthesisUtterance($('say').textContent);u.lang='ko-KR';u.rate=.85;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}};
+$('again').onclick=function(){start(sid)};
+$('moreCat').onclick=function(){openCat(cat)};
+$('toHome').onclick=function(){show('home')};
+initProfile();setMode(null);refreshAll();if(!P.ob&&!P.nick){renderOb();show('ob')}
+})();
+</script>
+</body>
+</html>
